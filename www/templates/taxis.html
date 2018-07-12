@@ -1,0 +1,100 @@
+<ion-view cache-view="false" view-title="Taxis">
+  <ion-content>
+
+  <div  class="bar bar-header bar-calm">
+    <h1 class="title">Listado Taxis</h1>
+  </div>
+
+  <div  style="padding-top: 40px">
+
+    <ion-list>
+      <ion-item  class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Taxi in taxis" type="item-text-wrap" href="#/tab/taxis/{{Taxi.rowid}}"> 
+       
+        <h2>{{Taxi.numero}}</h2>
+        <p>{{Taxi.placa}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="eliminar(Taxi.rowid)">
+          Delete
+        </ion-option-button>
+     
+      </ion-item>
+    </ion-list>
+
+    <button   class="button button-full button-positive"  ng-click="mostrartabla()">Crear Usuario</button>
+
+
+        <form ng-show="ver2 " class="list">
+
+           
+        <div class="list">
+            <label class="item item-input">
+            
+            <span class="input-label">Modelo</span>
+            <input  placeholder="Modelo" type="text" ng-model="taxi_nuevo.modelos">
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">Numero</span>
+              <input  placeholder="Numero" class="col-sm-4 form-control" type="text"  ng-model="taxi_nuevo.numero"  name="">
+
+            </label>
+
+           <label class="item item-input">
+               <span class="input-label">Placa</span>
+              <input  placeholder="Placa" class="col-sm-4 form-control" type="text" ng-model="taxi_nuevo.placas"  name="">
+            </label>
+        </div>
+
+
+        <div class="list">
+          
+            <label class="item item-input item-select">
+                 <div class="input-label">
+				      Conductor	
+				    </div>
+					
+						    <select placeholder="Conductor"  type="text" ng-model="taxi_nuevo.taxista_id"  name="">
+						      
+						     <option value="{{taxista.rowid}}" ng-repeat="taxista in taxistas">{{taxista.nombres}}   {{taxista.apellidos}}</option>
+					
+						    </select>
+					
+
+           
+            </label>
+
+
+            <label class="item item-input">
+                 <span class="input-label">Propietario</span>
+
+              <input  placeholder="Propietario" class="col-sm-4 form-control" type="text"  ng-model="taxi_nuevo.propietario" name="">
+            </label>
+            
+            
+           </div>
+    
+     
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Soat</span>
+            <input  placeholder="Soat" class="col-sm-4 form-control" type="text" ng-model="taxi_nuevo.Soat"  name="">
+            </label>
+
+            <label class="item item-input">
+               <span class="input-label">Seguro</span>
+              <input  placeholder="Seguro" class="col-sm-4 form-control" type="password" ng-model="taxi_nuevo.Seguro"  name="">
+            </label>
+
+        </div>
+            <br>
+              <button class="button button-full button-positive" ng-click="CREARTAXI(taxi_nuevo)" >Guardar</button> 
+               <button class="button button-full button-assertive" ng-click="mostrartabla()" >Cancelar</button> 
+          </form>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </ion-content>
+</ion-view>

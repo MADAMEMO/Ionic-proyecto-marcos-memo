@@ -1,0 +1,135 @@
+<ion-view cache-view="false" view-title="carreras">
+  <ion-content>
+
+
+  <div  class="bar bar-header bar-calm">
+    <h1 class="title">Listado Carreras</h1>
+  </div>
+
+  <div  style="padding-top: 40px">
+
+    <ion-list>
+      <ion-item  class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras" type="item-text-wrap" href="#/tab/chats/{{Carrera.rowid}}"> 
+       
+        <h2>{{Carrera.lugar_inicio}}</h2>
+
+        <p>taxi: {{Carrera.numero}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="eliminar(Carrera.rowid)">
+          Delete
+        </ion-option-button>
+     
+      </ion-item>
+    </ion-list>
+
+    <button   class="button button-full button-positive"  ng-click="mostrartabla()">Crear Carrera</button>
+
+
+        <form ng-show="ver2 " class="list">
+
+           
+        <div class="list">
+              <label class="item item-input item-select">
+                 <div class="input-label">
+              Taxista 
+            </div>
+          
+                <select placeholder="Taxista"  type="text" ng-model="carrera_nuevo.taxista"  name="">
+                  
+                 <option value="{{taxista.rowid}}" ng-repeat="taxista in taxistas">{{taxista.nombres}}   {{taxista.apellidos}}</option>
+          
+                </select>
+          
+
+           
+            </label>
+
+              <label class="item item-input item-select">
+                 <div class="input-label">
+              Taxi 
+            </div>
+          
+                <select placeholder="Taxi"  type="text" ng-model="carrera_nuevo.taxi"  name="">
+                  
+                 <option value="{{taxi.rowid}}" ng-repeat="taxi in taxis">{{taxi.numero}}-{{taxi.placa}}</option>
+          
+                </select>
+          
+
+
+
+           
+            </label>
+         </div>
+
+        <div class="list">
+          <label class="item item-input">
+              <span class="input-label">Zona</span>
+
+          </label>
+
+          <ion-radio type="radio" value="Z1" name="Zona" ng-model="carrera_nuevo.zona">Z1</ion-radio>
+          <ion-radio type="radio" value="Z2" name="Zona" ng-model="carrera_nuevo.zona">Z2</ion-radio>
+          <ion-radio type="radio" value="Z3" name="Zona" ng-model="carrera_nuevo.zona">Z3</ion-radio>
+        </div>
+      
+        <div class="list">
+            <label class="item item-input">
+               <span class="input-label">Lugar Inicio</span>
+              <input  placeholder="Lugar Inicio" class="col-sm-4 form-control" type="text" ng-model="carrera_nuevo.lugar_inicio"  name="">
+            </label>
+
+
+            <label class="item item-input">
+                 <span class="input-label">Fecha Inicio</span>
+                 <input  placeholder="Fecha Inicio" class="col-sm-4 form-control" type="date" ng-model="carrera_nuevo.fecha_ini"  name="">
+            </label>
+
+
+               <label class="item item-input">
+                 <span class="input-label">Hora Inicio</span>
+                <button value="" ng-model="carrera_nuevo.hora_ini" class="button button-light" ng-click="mostarhoraini()">{{hora_ini}}</button>
+            </label>
+           </div>
+           <div class="list">
+            <label class="item item-input">
+               <span class="input-label">Lugar Fin</span>
+              <input  placeholder="Lugar Fin" class="col-sm-4 form-control" type="text" ng-model="carrera_nuevo.lugar_fin"  name="">
+            </label>
+
+
+            <label class="item item-input">
+                 <span class="input-label">Fecha Fin</span>
+                 <input  placeholder="Fecha Fin" class="col-sm-4 form-control" type="date" ng-model="carrera_nuevo.fecha_fin"  name="">
+            </label>
+
+
+               <label class="item item-input">
+                 <span class="input-label">Hora Fin</span>
+                <button  ng-model="carrera_nuevo.hora_fin" value="" class="button button-light" ng-click="mostarhorafinal()">{{hora_fin}}</button>
+            </label>
+           </div>
+           
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Estado</span>
+
+          </label>
+
+          <ion-radio type="radio" value="En curso" name="Estado" ng-model="carrera_nuevo.estado">En curso</ion-radio>
+          <ion-radio type="radio" value="Finalizada" name="Estado" ng-model="carrera_nuevo.estado">Finalizada</ion-radio>
+          <ion-radio type="radio" value="Cancelada" name="Estado" ng-model="carrera_nuevo.estado">Cancelada</ion-radio>
+   
+        </div>
+            <br>
+              <button class="button button-full button-positive" ng-click="CREARCARRERA(carrera_nuevo)" >Guardar</button> 
+               <button class="button button-full button-assertive" ng-click="mostrartabla()" >Cancelar</button> 
+          </form>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </ion-content>
+</ion-view>

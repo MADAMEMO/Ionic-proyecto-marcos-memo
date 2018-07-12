@@ -1,0 +1,91 @@
+
+
+<ion-view view-title="{{chat.name}}">
+  <ion-content class="padding">
+
+      <div class="bar bar-header bar-calm">
+        <h1 class="title">Editar Taxi</h1>
+      </div>
+
+    <form style="padding-top: 50px">
+
+           
+        <div class="list">
+            <label class="item item-input">
+            
+            <span class="input-label">Modelo</span>
+            <input  placeholder="Modelo" type="text" ng-model="taxi_Editar.modelo">
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">Numero</span>
+              <input  placeholder="Numero" class="col-sm-4 form-control" type="text"  ng-model="taxi_Editar.numero"  name="">
+
+            </label>
+
+           <label class="item item-input">
+               <span class="input-label">Placa</span>
+              <input  placeholder="Placa" class="col-sm-4 form-control" type="text" ng-model="taxi_Editar.placa"  name="">
+            </label>
+        </div>
+
+
+        <div class="list">
+          
+            <label class="item item-input item-select">
+                 <div class="input-label">
+              Conductor 
+            </div>
+          
+                <select placeholder="Conductor" class="col-sm-4 form-control" 
+                  ng-model="taxi_Editar.taxista_id"  name="select-conductor">
+
+                      <option value="{{conductor.rowid}}" 
+                        ng-repeat="conductor in conductores" ng-if="(conductor.rowid == taxi_Editar.taxista_id)" selected="selected" class="algoooo">
+                        
+                        {{conductor.rowid}} {{conductor.nombres}}   {{conductor.apellidos}}
+
+                      </option>
+
+                      <option value="{{conductor.rowid}}" 
+                        ng-repeat="conductor in conductores" ng-if="conductor.rowid != taxi_Editar.taxista_id">
+                        
+                        {{conductor.rowid}} :: {{conductor.nombres}}   {{conductor.apellidos}}
+
+                      </option>
+                </select>
+          
+
+           
+            </label>
+
+
+            <label class="item item-input">
+                 <span class="input-label">Propietario</span>
+
+              <input  placeholder="Propietario" class="col-sm-4 form-control" type="text"  ng-model="taxi_Editar.propietario" name="">
+            </label>
+            
+            
+           </div>
+    
+     
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Soat</span>
+            <input  placeholder="Soat" class="col-sm-4 form-control" type="text" ng-model="taxi_Editar.Soat"  name="">
+            </label>
+
+            <label class="item item-input">
+               <span class="input-label">Seguro</span>
+              <input  placeholder="Seguro" class="col-sm-4 form-control" type="password" ng-model="taxi_Editar.Seguro"  name="">
+            </label>
+
+        </div>
+            <br>
+              <button class="button button-full button-positive" ng-click="GUARDARTAXI(taxi_Editar)" >Guardar</button> 
+
+          </form>
+
+  </ion-content>
+</ion-view>

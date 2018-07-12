@@ -1,0 +1,99 @@
+<ion-view cache-view="false" view-title="Taxista">
+  <ion-content>
+
+  <div  class="bar bar-header bar-calm">
+    <h1 class="title">Listado taxistas</h1>
+  </div>
+
+  <div  style="padding-top: 40px">
+
+    <ion-list>
+      <ion-item  class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Taxista in taxistas" type="item-text-wrap" href="#/tab/taxistas/{{Taxista .rowid}}"> 
+       
+        <h2>{{Taxista.nombres}}</h2>
+        <p>{{Taxista.apellidos}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="eliminar(Taxista.rowid)">
+          Delete
+        </ion-option-button>
+     
+      </ion-item>
+    </ion-list>
+
+    <button   class="button button-full button-positive"  ng-click="mostrartabla()">Crear Taxista</button>
+
+
+        <form ng-show="ver2 " class="list">
+
+           
+        <div class="list">
+            <label class="item item-input">
+            
+            <span class="input-label">Nombres</span>
+            <input  placeholder="Nombres" type="text" ng-model="taxista_nuevo.nombres">
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">Apellidos</span>
+              <input  placeholder="Apellidos" class="col-sm-4 form-control" type="text"  ng-model="taxista_nuevo.apellidos"  name="">
+
+            </label>
+
+             <label class="item item-input">
+            <span class="input-label">Fecha Nacimiento</span>
+              <input  placeholder="Fecha de Nacimiento" class="col-sm-4 form-control" type="date"  ng-model="taxista_nuevo.fecha_nac" name="">
+            </label>
+        </div>
+
+        <div class="list">
+          <label class="item item-input">
+              <span class="input-label">Sexo</span>
+
+          </label>
+
+          <ion-radio type="radio" value="M" name="sexo_usu" ng-model="taxista_nuevo.sexo">Masculino</ion-radio>
+          <ion-radio type="radio" value="F" name="sexo_usu" ng-model="taxista_nuevo.sexo">Femenino</ion-radio>
+        </div>
+
+        <div class="list">
+            <label class="item item-input">
+               <span class="input-label">Documento</span>
+              <input  placeholder="Documento" class="col-sm-4 form-control" type="text" ng-model="taxista_nuevo.documento"  name="">
+            </label>
+            <label class="item item-input">
+                 <span class="input-label">Celular</span>
+
+              <input  placeholder="Celular" class="col-sm-4 form-control" type="text"  ng-model="taxista_nuevo.celular" name="">
+            </label>
+            
+           </div>
+   
+           
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Usuario</span>
+            <input  placeholder="Usuario" class="col-sm-4 form-control" type="text" ng-model="taxista_nuevo.usuario"  name="">
+            </label>
+
+            <label class="item item-input">
+               <span class="input-label">Contraseña</span>
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="taxista_nuevo.password"  name="">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Repita Contraseña</span>
+                <input  placeholder="Repita Contraseña" class="col-sm-4 form-control" type="password" ng-model="taxista_nuevo.password2"  name="">
+            </label>
+        </div>
+            <br>
+              <button class="button button-full button-positive" ng-click="CREARTAXISTA(taxista_nuevo)" >Guardar</button> 
+               <button class="button button-full button-assertive" ng-click="mostrartabla()" >Cancelar</button> 
+          </form>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </ion-content>
+</ion-view>
