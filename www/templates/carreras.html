@@ -6,10 +6,26 @@
     <h1 class="title">Listado Carreras</h1>
   </div>
 
-  <div  style="padding-top: 40px">
+  <div  style="padding-top: 30px">
+
+          <div  class=" content mt-3">
+        <div  style="height: 100px; background-color: white;   text-align: center " class="card">
+           <div class="card-header">
+
+        </div>
+            <div style=" text-align: center" >
+                  <BUTTON class="btn-estado"  ng-click="en_curso(carrera_estado)" style="margin-top: 27px; padding: 10px " ng-disabled="carrera_estado.estado=='En curso'">EN CURSO</BUTTON>
+
+                  <BUTTON class="btn-estado" ng-click="finalizada(carrera_estado)"   ng-disabled="carrera_estado.estado=='Finalizada'" style="margin-top: 27px; padding: 10px " >FINALIZADA</BUTTON>
+
+                  <BUTTON class="btn-estado"  ng-click="cancelada(carrera_estado)"  ng-disabled="carrera_estado.estado=='Cancelada'" style="margin-top: 27px; padding: 10px " >CANCELADA</BUTTON>
+
+            </div>
+        </div>
+      </div>
 
     <ion-list>
-      <ion-item  class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras" type="item-text-wrap" href="#/tab/chats/{{Carrera.rowid}}"> 
+      <ion-item  class="manito" ng-class="{'fondo-seleccionado': carrera.seleccionada}" class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras" type="item-text-wrap" > 
        
         <h2>{{Carrera.lugar_inicio}}</h2>
 
@@ -17,9 +33,13 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="eliminar(Carrera.rowid)">
-          Delete
+          Eliminar
         </ion-option-button>
-     
+
+        <ion-option-button class="button-assertive" ng-click="eliminar(Carrera.rowid)">
+          Modificar
+        </ion-option-button>
+     href="#/tab/chats/{{Carrera.rowid}}"
       </ion-item>
     </ion-list>
 
