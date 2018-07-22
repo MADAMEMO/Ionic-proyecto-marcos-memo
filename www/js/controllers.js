@@ -44,37 +44,37 @@
 
 
 		consulta = 'INSERT INTO carreras (taxi_id, taxista_id, zona, fecha_ini, lugar_inicio, lugar_fin, fecha_fin, estado) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
-				ConexionServ.query(consulta, [2,2,'z1','hoy','el parque','el parque2','mana','cancelada']).then(function(result){
+				ConexionServ.query(consulta, [2,2,'z1','2018-07-22 16:26','el parque','el parque2','mana','cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);
 				});
-					ConexionServ.query(consulta, [23,21,'z1','hoy','los lanceros','el parque2','mana','cancelada']).then(function(result){
+					ConexionServ.query(consulta, [23,21,'z1',2018-07-22,'los lanceros','el parque2',2018-07-22,'cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);
 				});
-					ConexionServ.query(consulta, [5,12,'z1','hoy','calle 14#22-56','el parque2','mana','cancelada']).then(function(result){
+					ConexionServ.query(consulta, [5,12,'z1',2018-07-22,'calle 14#22-56','el parque2',2018-07-22,'cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);
 				});
-					ConexionServ.query(consulta, [26,22,'z1','hoy','barrio las ferias','el parque2','mana','cancelada']).then(function(result){
+					ConexionServ.query(consulta, [26,22,'z1',2018-07-22,'barrio las ferias','el parque2',2018-07-22,'cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);
 				});
-					ConexionServ.query(consulta, [12,22,'z1','hoy','barrio el cielo','el parque2','mana','cancelada']).then(function(result){
+					ConexionServ.query(consulta, [12,22,'z1',2018-07-22,'barrio el cielo','el parque2',2018-07-22,'cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);
 				});
-					ConexionServ.query(consulta, [64,33,'z1','hoy','donde el goyo','el parque2','mana','cancelada']).then(function(result){
+					ConexionServ.query(consulta, [64,33,'z1',2018-07-22,'donde el goyo','el parque2',2018-07-22,'cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);
 				});
-					ConexionServ.query(consulta, [11,32,'z1','hoy','en mi casa','el parque2','mana','cancelada']).then(function(result){
+					ConexionServ.query(consulta, [11,32,'z1',2018-07-22,'en mi casa','el parque2',2018-07-22,'cancelada']).then(function(result){
 
 					}, function(tx) {
 					console.log("Dato original no insertado", tx);

@@ -2,10 +2,11 @@ angular.module('starter')
 
 .controller('CarrerasCtrl', function($scope, Chats, ConexionServ, $ionicLoading, $ionicPopup, ionicTimePicker, $state){
 
-	$scope.go_modificar = function(){
-	$state.go('#/tab/carreras/{{Carrera.rowid}}')	
-
+	$scope.go_modificar = function(rowid){
+$state.go('tab.carreras-modificar')	
 };
+
+//  #/tab/carreras/{{Carrera.rowid}} //
 
   var Horainicial = {
     callback: function (val) {      //Mandatory
