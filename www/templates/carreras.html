@@ -25,21 +25,25 @@
       </div>
 
     <ion-list>
-      <ion-item  class="manito" ng-class="{'fondo-seleccionado': carrera.seleccionada}" class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras" type="item-text-wrap" > 
+      <ion-item ng-click="modificarcarrera(Carrera)" class="manito" ng-class="{'fondo-seleccionado': carrera.seleccionada}" class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras" type="item-text-wrap" > 
        
         <h2>{{Carrera.lugar_inicio}}</h2>
 
         <p>taxi: {{Carrera.numero}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <p>Estado: {{Carrera.estado}}</p>
+
+        
+
+
 
         <ion-option-button class="button-assertive" ng-click="eliminar(Carrera.rowid)">
           Eliminar
         </ion-option-button>
 
-        <ion-option-button class="button-assertive" ng-click="eliminar(Carrera.rowid)">
+        <ion-option-button  class="button-calm" ng-click="go_modificar()">
           Modificar
         </ion-option-button>
-     href="#/tab/chats/{{Carrera.rowid}}"
       </ion-item>
     </ion-list>
 

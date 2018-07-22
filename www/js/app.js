@@ -119,6 +119,18 @@ angular.module('starter', ['ionic', 'ionic-timepicker'])
         }
       }
     })
+      .state('tab.carreras-modificar', {
+      url: '/carreras/:carreraId',
+      views: {
+        'tab-carreras': {
+          templateUrl: 'templates/carreras-modificar.html',
+          controller: 'carrerasmodificarCtrl'
+        }
+      }
+    })
+
+
+
 
      .state('tab.taxis-modificar', {
       url: '/taxis/:taxiId',
