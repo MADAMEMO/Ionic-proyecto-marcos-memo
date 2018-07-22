@@ -70,7 +70,7 @@
 
                <label class="item item-input">
                  <span class="input-label">Hora Inicio</span>
-                <button value="" ng-model="carrera_Editar.hora_ini" class="button button-light" ng-click="mostarhoraini()">{{hora_ini}}</button>
+                <button value="" class="button button-light" ng-click="mostarhoraini()">{{carrera_Editar.hora_ini}}</button>
             </label>
            </div>
            <div class="list">
@@ -88,7 +88,7 @@
 
                <label class="item item-input">
                  <span class="input-label">Hora Fin</span>
-                <button  ng-model="carrera_Editar.hora_fin" value="" class="button button-light" ng-click="mostarhorafinal()">{{hora_fin}}</button>
+                <button  ng-model="carrera_Editar.hora_fin" value="" class="button button-light" ng-click="mostarhorafinal()">{{carrera_Editar.hora_fin}}</button>
             </label>
            </div>
            
@@ -106,7 +106,7 @@
   
 
             <br>
-              <button class="button button-full button-positive" ng-click="GUARDARTAXI(taxi_Editar)" >Guardar</button> 
+              <button class="button button-full button-positive" ng-click="GUARDARCARRERA(carrera_Editar)" >Guardar</button> 
 
           </form>
 

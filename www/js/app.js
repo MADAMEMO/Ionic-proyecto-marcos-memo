@@ -68,7 +68,6 @@ angular.module('starter', ['ionic', 'ionic-timepicker'])
       }
     })
 
-
   .state('tab.taxis', {
       url: '/taxis',
       views: {

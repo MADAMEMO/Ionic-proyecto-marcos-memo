@@ -3,8 +3,8 @@ angular.module('starter')
 .controller('CarrerasCtrl', function($scope, Chats, ConexionServ, $ionicLoading, $ionicPopup, ionicTimePicker, $state){
 
 	$scope.go_modificar = function(rowid){
-$state.go('tab.carreras-modificar')	
-};
+		$state.go('tab.carreras-modificar', {carreraId: rowid})	
+	};
 
 //  #/tab/carreras/{{Carrera.rowid}} //
 
@@ -26,7 +26,8 @@ $state.go('tab.carreras-modificar')
   };
     
   $scope.mostarhoraini = function (){
-  ionicTimePicker.openTimePicker(Horainicial); };
+  	ionicTimePicker.openTimePicker(Horainicial); 
+  };
 
 
 
