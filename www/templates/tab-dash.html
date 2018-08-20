@@ -17,13 +17,13 @@
         <ion-item href="#/tab/carreras" class="font-left-menu item-icon-right">
           Carreras <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
         </ion-item>
-          <ion-item href="#/tab/chats" class="font-left-menu item-icon-right">
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/chats" class="font-left-menu item-icon-right">
           Usuarios <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
         </ion-item>
-          <ion-item href="#/tab/taxis" class="font-left-menu item-icon-right">
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxis" class="font-left-menu item-icon-right">
           Taxis <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
         </ion-item>
-          <ion-item href="#/tab/taxistas" class="font-left-menu item-icon-right">
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxistas" class="font-left-menu item-icon-right">
           Taxistas <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
         </ion-item>
         <br>
@@ -32,7 +32,7 @@
           About <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
         </ion-item>
         <br>
-        <ion-item menu-close href="#/logout">
+        <ion-item menu-close href="#/login">
           Exit
         </ion-item>
       </ion-list>

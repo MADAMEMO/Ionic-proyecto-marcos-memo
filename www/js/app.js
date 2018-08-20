@@ -43,8 +43,26 @@ angular.module('starter', ['ionic', 'ionic-timepicker'])
     .state('tab', {
       url: '/tab',
       abstract: true,
-      templateUrl: 'templates/tabs.html'
+      controller: 'TabCtrl',
+      templateUrl: 'templates/tabs.html',
+      resolve: {
+        USER: ['AuthServ', '$state', function(AuthServ, $state){
+          return AuthServ.verificar_user_logueado().then(function(u){
+            return u;
+          }, function(){
+            $state.go('login');
+          });
+        }]
+      }
     })
+
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl'
+    })
+
+
 
   // Each tab has its own nav history stack:
 
@@ -141,6 +159,7 @@ angular.module('starter', ['ionic', 'ionic-timepicker'])
       }
     })
 
+
   .state('tab.account', {
     url: '/account',
     views: {
@@ -152,7 +171,7 @@ angular.module('starter', ['ionic', 'ionic-timepicker'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
 
 });
 

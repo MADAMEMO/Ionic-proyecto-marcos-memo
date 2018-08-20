@@ -1,9 +1,103 @@
-<ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
+
+
+<ion-view view-title="{{chat.name}}">
+  <ion-content class="padding">
+
+      <div class="bar bar-header bar-calm">
+        <h1 class="title">Editar mi perfil</h1>
+      </div>
+
+      <div>
+       <form style="padding-top: 50px">
+       	   <div class="card-header">
+	            <strong class="card-title">INFORMACION PERSONAL</strong>
+	        </div>
+        <div class="list">
+            <label class="item item-input">
+            
+            <span class="input-label">Nombres</span>
+            <input  placeholder="Nombres" type="text" ng-model="USER.nombres">
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">Apellidos</span>
+              <input  placeholder="Apellidos" class="col-sm-4 form-control" type="text"  ng-model="USER.apellidos"  name="">
+
+            </label>
+
+             <label class="item item-input">
+            <span class="input-label">Fecha Nacimiento</span>
+              <input  placeholder="Fecha de Nacimiento" class="col-sm-4 form-control" type="date"  ng-model="USER.fecha_nac" name="">
+            </label>
+        </div>
+
+        <div class="list">
+          <label class="item item-input">
+              <span class="input-label">Sexo</span>
+
+          </label>
+
+          <ion-radio type="radio" value="M" name="sexo_usu" ng-model="USER.sexo">Masculino</ion-radio>
+          <ion-radio type="radio" value="F" name="sexo_usu" ng-model="USER.sexo">Femenino</ion-radio>
+        </div>
+
+        <div class="list">
+            <label class="item item-input">
+               <span class="input-label">Documento</span>
+              <input  placeholder="Documento" class="col-sm-4 form-control" type="text" ng-model="USER.documento"  name="">
+            </label>
+            <label class="item item-input">
+                 <span class="input-label">Celular</span>
+
+              <input  placeholder="Celular" class="col-sm-4 form-control" type="text"  ng-model="USER.celular" name="">
+            </label>
+            
+           </div>
+         
+ 
+     
+              <button class="button button-full button-positive" ng-click="GUARDARUSUARIO(USER)" >SOLICITAR CAMBIOS</button> 
+         
+
+      </form>
+
+   </div>
+   <div>
+   	 <div class="card-header">
+	            <strong class="card-title">CAMBIAR CONTRASEÑA</strong>
+	 </div>
+
+
+            <label class="item item-input">
+               <span class="input-label">Contraseña antigua</span>
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="USER.password"  name="">
+            </label>
+
+
+            <label class="item item-input">
+               <span class="input-label">Contraseña nueva</span>
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="USER.password"  name="">
+            </label>
+
+
+            <label class="item item-input">
+               <span class="input-label">Repita contraseña</span>
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="USER.password"  name="">
+            </label>
+
+                 <button  class="button button-full button-positive" >SOLICITAR CAMBIOS</button>
+                    
+
+
+
+
+
+
+
+
+
+
+
+   </div>
   </ion-content>
 </ion-view>
