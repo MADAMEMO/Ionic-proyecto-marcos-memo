@@ -31,8 +31,8 @@ app.controller('ChatDetailCtrl', function($scope, ConexionServ, $stateParams, $s
     }
 
 
-    consulta = 'UPDATE users SET  nombres=?, apellidos=?, sexo=?, tipo=?, documento=?, celular=?, fecha_nac=?, usuario=?, password=? where rowid=? '
-    ConexionServ.query(consulta, [usuario_Editar.nombres, usuario_Editar.apellidos, usuario_Editar.sexo, usuario_Editar.tipo, usuario_Editar.documento, usuario_Editar.celular, usuario_Editar.fecha_nac, usuario_Editar.usuario, usuario_Editar.password, usuario_Editar.rowid]).then(function(result){
+    consulta = 'UPDATE users SET  nombres=?, apellidos=?, sexo=?, tipo=?, documento=?, celular=?, fecha_nac=?, usuario=?, password=?, modificado=? where rowid=? '
+    ConexionServ.query(consulta, [usuario_Editar.nombres, usuario_Editar.apellidos, usuario_Editar.sexo, usuario_Editar.tipo, usuario_Editar.documento, usuario_Editar.celular, usuario_Editar.fecha_nac, usuario_Editar.usuario, usuario_Editar.password, usuario_Editar.rowid, modificado = 0]).then(function(result){
       console.log('se cargo el usuario', result);
           $scope.showAlert();
           $state.go('tab.Usuarios');

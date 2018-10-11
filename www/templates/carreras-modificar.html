@@ -2,7 +2,7 @@
 
 <ion-view view-title="{{chat.name}}">
   <ion-content class="padding">
-
+<div ng-show="USER.tipo == 'Admin' || USER.tipo == 'Operador' ">
       <div class="bar bar-header bar-calm">
         <h1 class="title">Editar Carrera</h1>
       </div>
@@ -109,6 +109,72 @@
               <button class="button button-full button-positive" ng-click="GUARDARCARRERA(carrera_Editar)" >Guardar</button> 
 
           </form>
+</div>
+<div ng-show="USER.tipo != 'Admin' && USER.tipo != 'Operador' ">
+      <div class="bar bar-header bar-calm">
+        <h1 class="title">Detalle de la Carrera</h1>
+      </div>
 
+    <form style="padding-top: 50px">
+
+        
+        <div class="list">
+  
+              <label class="item item-input">
+                 <div class="input-label">
+                  Taxi:     {{ carrera_Editar.taxi_temp }} 
+
+                </div>
+           
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Zona: {{carrera_Editar.zona}}</span>
+
+          </label>
+          <label class="item item-input">
+               <span class="input-label">Lugar Inicio:  {{carrera_Editar.lugar_inicio}}</span>
+          </label>
+           <label class="item item-input">
+                 <span class="input-label">Fecha Inicio  {{carrera_Editar.fecha_ini | date:'yyyy-MM-dd'}}</span>
+          </label>
+           <label class="item item-input">
+                 <span class="input-label">Hora Inicio: {{carrera_Editar.hora_ini}}</span>
+           </label>
+     
+            <label class="item item-input">
+               <span class="input-label">Lugar Fin:  {{carrera_Editar.lugar_fin}}</span>
+              </label>
+
+                <label class="item item-input">
+                 <span class="input-label">Fecha Fin: {{carrera_Editar.fecha_fin | date:'yyyy-MM-dd'}}</span>
+                 
+            </label>
+
+          <label class="item item-input">
+                 <span class="input-label">Hora Fin: {{carrera_Editar.hora_fin}}</span>
+                
+            </label>
+
+             <label class="item item-input">
+              <span class="input-label">Estado: {{carrera_Editar.estado}}</span>
+
+          </label>
+              <label class="item item-input">
+              <span class="input-label">Registrada por: {{carrera_Editar.usuario_temp}}</span>
+
+          </label>
+
+         </div>
+
+  
+   
+
+      
+          
+
+           
+
+              
+</div>
   </ion-content>
 </ion-view>

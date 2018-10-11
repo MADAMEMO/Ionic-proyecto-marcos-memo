@@ -1,8 +1,21 @@
 var app = angular.module('starter');
 
-app.controller('taxisCtrl', function($scope, $http, $filter, ConexionServ, $ionicPopup){
+app.controller('taxisCtrl', function($scope,  $ionicSideMenuDelegate, $http, $filter, ConexionServ, $ionicPopup){
+
+		$scope.verbuscar = false;
+		$scope.verboton = true;
+
+  $scope.mostrarboton = function(taxi){
+   
+   $scope.verbuscar = !$scope.verbuscar; 
+	   $scope.verboton = !$scope.verboton; 
+  
+  }
 
 
+	$scope.toggleLeft = function() {
+		$ionicSideMenuDelegate.toggleLeft();
+	};
  $scope.eliminar = function(rowid) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
@@ -11,9 +24,9 @@ app.controller('taxisCtrl', function($scope, $http, $filter, ConexionServ, $ioni
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'DELETE FROM taxis Where rowid=?'
-        ConexionServ.query(consulta, [rowid]).then(function(result){
-          console.log('se elimino el usuario', result);
+        consulta = 'UPDATE taxis SET eliminado ="1"  Where rowid=?'
+		ConexionServ.query(consulta, [rowid]).then(function(result){
+          console.log('se elimino el taxi', result);
            $scope.traer_datos();
        
         }, function(tx){
@@ -24,6 +37,7 @@ app.controller('taxisCtrl', function($scope, $http, $filter, ConexionServ, $ioni
      }
    });
  };
+
 
 	$scope.CREARTAXI = function(taxi_nuevo){
 		console.log(taxi_nuevo);
@@ -67,7 +81,7 @@ app.controller('taxisCtrl', function($scope, $http, $filter, ConexionServ, $ioni
 
  $scope.traer_datos = function(){ 
 
-	consulta = 'SELECT *, rowid from taxis'
+	consulta = 'SELECT *, rowid from taxis  WHERE eliminado = "0"'
 		ConexionServ.query(consulta, []).then(function(result){
 			$scope.taxis = result;
 			console.log('se subio el taxi', result);
@@ -81,7 +95,7 @@ app.controller('taxisCtrl', function($scope, $http, $filter, ConexionServ, $ioni
 
 	$scope.traer_datos()
 
-	consulta = 'SELECT *, rowid from taxistas'
+	consulta = 'SELECT *, rowid from taxistas  WHERE eliminado = "0"'
 		ConexionServ.query(consulta, []).then(function(result){
 			$scope.taxistas = result;
 			console.log('se trajo el taxista', result);

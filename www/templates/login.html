@@ -1,6 +1,8 @@
 
-<ion-view  view-title="login">
+<ion-view>
   <ion-content>
+  <img src="img/logorttame.png">
+    <h5 style="text-align: center;">Ingresa Usuario y Contraseña</h5>
 
 <div class="list">
   <form ng-submit="entrar(usu)"> 
@@ -14,8 +16,8 @@
     </label>
    <br>
     <div class="row">
-     <ion-radio type="radio" value="Operador" name="Zona" ng-model="usu.tipo">Operador</ion-radio>
-     <ion-radio type="radio" value="Taxista" name="Zona" ng-model="usu.tipo">Taxista</ion-radio>
+     <ion-radio class="col col-50" type="radio" value="Operador" name="Zona" ng-model="usu.tipo">Operador</ion-radio>
+     <ion-radio class="col col-50" type="radio" value="Taxista" name="Zona" ng-model="usu.tipo">Taxista</ion-radio>
     </div>  
     <button type="submit" class="button button-block button-positive">
     Ingresar

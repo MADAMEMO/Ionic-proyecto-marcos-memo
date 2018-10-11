@@ -922,19 +922,19 @@
 		ConexionServ.query(consulta, [usu.nombres,usu.apellidos, usu.sexo, usu.documento, usu.celular,fecha_nac,  usu.rowid]).then(function(result){
 			console.log('se cargo el usuario', result);
 			AuthServ.update_user_storage(usu);
-			toastr.success('Guardado con éxito', 'Guardado');
+			
 		}, function(tx){
 			console.log('error', tx);
-			toastr.error('No se pudo guardar');
+
 		});
-		$scope.ver = false;
+	
 	}	
 
 	$scope.cambiar_pass = function(passwords){
 
 
 		if (passwords.nuevo != passwords.nuevo2) {
-			toastr.warning('No coincide la contraseña nueva');
+			console.log('No coincide la contraseña nueva');
 			return;
 		}
 		
@@ -944,13 +944,14 @@
 			
 			consulta = 'UPDATE users SET password=? WHERE rowid=?';
 			ConexionServ.query(consulta, [passwords.nuevo, $scope.USER.rowid]).then(function(){
-				toastr.success('Contraseña cambiada');
+			console.log('CONTRASEÑA CAMBIADA', result);	
 			}, function(){
-				toastr.error('Contraseña NO cambiada');
+			console.log('CONTRASEÑA NO CAMBIADA', result);		
 			})
 
 		}, function(err){
-			toastr.error('Contraseña antigua inválida');
+		console.log('CONTRASEÑA ANTIGUA INVALIDA ', err);		
+		
 		});
 	}	
 

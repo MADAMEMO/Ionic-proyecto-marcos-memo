@@ -1,14 +1,72 @@
+
+<ion-side-menus>
+  <!-- Left menu -->
+  <ion-side-menu side="left">
+    <ion-list>
+
+       <ion-item href="#/tab/carreras" class="font-left-menu item-icon-right">
+          ... <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+
+          <ion-item href="#/tab/dash" class="font-left-menu item-icon-right">
+          Inicio <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+
+        <ion-item href="#/tab/carreras" class="font-left-menu item-icon-right">
+          Carreras <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/chats" class="font-left-menu item-icon-right">
+          Usuarios <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxis" class="font-left-menu item-icon-right">
+          Taxis <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxistas" class="font-left-menu item-icon-right">
+          Taxistas <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+        <br>
+  
+        <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
+          About <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item>
+        <br>
+        <ion-item menu-close href="#/login">
+          Exit
+        </ion-item>
+      </ion-list>
+  </ion-side-menu>
+
+  <ion-side-menu-content>
+
+
+
+
 <ion-view cache-view="false" view-title="Taxista">
   <ion-content>
 
-  <div  class="bar bar-header bar-calm">
-    <h1 class="title">Listado taxistas</h1>
-  </div>
+  <div class="bar bar-header bar-calm">
+  <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
+  <h1 class="title">Listado Taxistas</h1>
+
+</div>
 
   <div  style="padding-top: 40px">
+    <button  ng-click="mostrarboton()" ng-show="verboton"  class="button button-stable icon ion-ios-search placeholder-icon  ">
+  
+</button>
 
+
+<div  ng-show="verbuscar" class="bar bar-header item-input-inset">
+<label class="item-input-wrapper">
+  <i class="icon ion-ios-search placeholder-icon"></i>
+  <input type="search" placeholder="Buscar..." ng-model="text_buscar">
+</label>
+<button ng-click="mostrarboton()" class="button button-clear button-positive">
+  Cancelar
+</button>
+</div>
     <ion-list>
-      <ion-item  class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Taxista in taxistas" type="item-text-wrap" href="#/tab/taxistas/{{Taxista .rowid}}"> 
+      <ion-item  class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Taxista in taxistas  | filter:text_buscar" " type="item-text-wrap" href="#/tab/taxistas/{{Taxista .rowid}}"> 
        
         <h2>{{Taxista.nombres}}</h2>
         <p>{{Taxista.apellidos}}</p>
@@ -97,3 +155,10 @@
     </div>
   </ion-content>
 </ion-view>
+
+  </ion-side-menu-content>
+
+  <!-- Right menu -->
+
+
+</ion-side-menus>

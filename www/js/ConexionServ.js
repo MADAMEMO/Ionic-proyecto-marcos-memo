@@ -16,7 +16,9 @@ angular.module('starter')
                 "documento varchar(100)  NULL collate nocase,"+
                 "tipo varchar(100)  NOT NULL collate nocase," + 
                 "usuario varchar(100)  NOT NULL collate nocase,"+
-                "password varchar(100)  NOT NULL collate nocase)";
+                "password varchar(100)  NOT NULL collate nocase,"+
+                "modificado integer DEFAULT 0,"+
+                "eliminado integer  DEFAULT 0)";
 
   sqltaxistas = "CREATE TABLE IF NOT EXISTS taxistas (id integer," +
                 "nombres varchar(100)  NOT NULL collate nocase," +
@@ -27,7 +29,9 @@ angular.module('starter')
                 "fecha_nac date DEFAULT NULL," +
                 "documento varchar(100)  NULL collate nocase,"+
                 "usuario varchar(100)  NOT NULL collate nocase,"+
-                "password varchar(100)  NULL collate nocase)";
+                "password varchar(100)  NULL collate nocase,"+
+                  "modificado integer DEFAULT 0,"+
+                "eliminado integer  DEFAULT 0)";
 
 
   sqltaxis = "CREATE TABLE IF NOT EXISTS taxis (id integer," +
@@ -37,7 +41,9 @@ angular.module('starter')
                 "taxista_id integer  DEFAULT NULL," +
                 "propietario varchar(100)  DEFAULT NULL collate nocase," +
                 "Soat varchar(100)  DEFAULT NULL collate nocase," +
-                "Seguro varchar(100)  DEFAULT NULL collate nocase)";
+                "Seguro varchar(100)  DEFAULT NULL collate nocase,"+
+                   "modificado integer DEFAULT 0,"+
+                "eliminado integer  DEFAULT 0)";
 
   sqlcarreras = "CREATE TABLE IF NOT EXISTS carreras (id integer," +
                 "taxi_id integer  DEFAULT NULL,"+
@@ -47,7 +53,10 @@ angular.module('starter')
                 "lugar_inicio varchar(100) DEFAULT NULL,"+
                  "lugar_fin varchar(100) DEFAULT NULL,"+
                 "fecha_fin date DEFAULT NULL," +
-                "estado varchar(100) NOT NULL collate nocase)";
+                "estado varchar(100) NOT NULL collate nocase,"+
+                "registrada_por integer(100) DEFAULT NULL collate nocase,"+
+                 "modificado varchar(100)  DEFAULT 0,"+
+                "eliminado integer  DEFAULT 0)";
               
     result = {
           

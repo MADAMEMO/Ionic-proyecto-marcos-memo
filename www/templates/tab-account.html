@@ -1,7 +1,7 @@
 
 
 <ion-view view-title="{{chat.name}}">
-  <ion-content class="padding">
+  <ion-content >
 
       <div class="bar bar-header bar-calm">
         <h1 class="title">Editar mi perfil</h1>
@@ -70,22 +70,22 @@
 
             <label class="item item-input">
                <span class="input-label">Contraseña antigua</span>
-              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="USER.password"  name="">
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="passwords.antiguo"  name="">
             </label>
 
 
             <label class="item item-input">
                <span class="input-label">Contraseña nueva</span>
-              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="USER.password"  name="">
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password"  ng-model="passwords.nuevo" name="">
             </label>
 
 
             <label class="item item-input">
                <span class="input-label">Repita contraseña</span>
-              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password" ng-model="USER.password"  name="">
+              <input  placeholder="Contraseña" class="col-sm-4 form-control" type="password"  ng-model="passwords.nuevo2" name="">
             </label>
 
-                 <button  class="button button-full button-positive" >SOLICITAR CAMBIOS</button>
+                 <button  ng-click="cambiar_pass(passwords)" class="button button-full button-positive" >SOLICITAR CAMBIOS</button>
                     
 
 

@@ -1,7 +1,22 @@
 angular.module('starter')
 
-.controller('CarrerasCtrl', function($scope, Chats, ConexionServ, $ionicLoading, $ionicPopup, ionicTimePicker, $state){
+.controller('CarrerasCtrl', function($scope, Chats, ConexionServ, $ionicLoading, $ionicPopup,  $ionicSideMenuDelegate, ionicTimePicker, $state,USER){
+	console.log(usu);
 
+	
+		$scope.verbuscar = false;
+		$scope.verboton = true;
+
+  $scope.mostrarboton = function(taxi){
+   
+   $scope.verbuscar = !$scope.verbuscar; 
+	   $scope.verboton = !$scope.verboton; 
+  
+  }
+
+	$scope.toggleLeft = function() {
+		$ionicSideMenuDelegate.toggleLeft();
+	};
 	$scope.go_modificar = function(rowid){
 		$state.go('tab.carreras-modificar', {carreraId: rowid})	
 	};
@@ -62,13 +77,13 @@ $scope.hora_fin = '' + fecha.getHours() + ':' + fecha.getMinutes();
  $scope.eliminar = function(rowid) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
-     template: '¿Esta seguro de eliminar esta carrera?'
+     template: '¿Esta seguro de eliminar este usuario?'
    });
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'DELETE FROM carreras Where rowid=?'
-        ConexionServ.query(consulta, [rowid]).then(function(result){
+        consulta = 'UPDATE carreras SET eliminado ="1"  Where rowid=?'
+		ConexionServ.query(consulta, [rowid]).then(function(result){
           console.log('se elimino la carrera', result);
            $scope.traer_datos();
        
@@ -120,8 +135,8 @@ $scope.hora_fin = '' + fecha.getHours() + ':' + fecha.getMinutes();
 		fechayhora_inicio 	= fecha_inicio  + ' ' + $scope.hora_ini;
 		fechayhora_fin 		= fecha_fin 	+ ' ' + $scope.hora_fin;
 
-		consulta = 'INSERT INTO carreras (taxi_id, taxista_id, zona, fecha_ini, lugar_inicio, lugar_fin, fecha_fin, estado) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
-		ConexionServ.query(consulta, [carrera_nuevo.taxi,  carrera_nuevo.taxista, carrera_nuevo.zona, fechayhora_inicio, carrera_nuevo.lugar_inicio, carrera_nuevo.lugar_fin, fechayhora_fin, carrera_nuevo.estado]).then(function(result){
+		consulta = 'INSERT INTO carreras (taxi_id, taxista_id, zona, fecha_ini, lugar_inicio, lugar_fin, fecha_fin, estado,registrada_por ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+		ConexionServ.query(consulta, [carrera_nuevo.taxi,  carrera_nuevo.taxista, carrera_nuevo.zona, fechayhora_inicio, carrera_nuevo.lugar_inicio, carrera_nuevo.lugar_fin, fechayhora_fin, carrera_nuevo.estado, usu.rowid]).then(function(result){
 			console.log('se guardo la carrera papi', result);
 					console.log(carrera_nuevo.taxi);
 			$scope.traer_datos()
@@ -156,16 +171,41 @@ $scope.traer_datos = function(){
 
   $scope.traer_datos = function(){ 
 
-	consulta = 'SELECT c.*, c.rowid, t.nombres, t.apellidos, tx.numero from carreras c ' + 
+ consulta = '';
+
+            	console.log(usu);
+            if (usu.tipo == 'Operador' || usu.tipo == 'Admin') {
+			consulta = 'SELECT c.*, c.rowid, t.nombres, t.apellidos, tx.numero from carreras c ' + 
 				'INNER JOIN taxistas t ON c.taxista_id = t.rowid ' + 
-				'INNER JOIN taxis tx ON c.taxi_id = tx.rowid ' +
+				'INNER JOIN taxis tx ON c.taxi_id = tx.rowid WHERE c.eliminado = "0"' +
 				'order by c.rowid desc';
-	ConexionServ.query(consulta, []).then(function(result){
-		$scope.carreras = result;
-			for (var i = 0; i < $scope.carreras.length; i++) {
-				$scope.carreras[i].fecha_ini = new Date($scope.carreras[i].fecha_ini);
-				$scope.carreras[i].fecha_fin = new Date($scope.carreras[i].fecha_fin);
-			}
+
+				
+				ConexionServ.query(consulta, []).then(function(result){
+					$scope.carreras = result;
+					for (var i = 0; i < $scope.carreras.length; i++) {
+						$scope.carreras[i].fecha_ini = new Date($scope.carreras[i].fecha_ini);
+						$scope.carreras[i].fecha_fin = new Date($scope.carreras[i].fecha_fin);
+					}
+
+					console.log('se trajeron las carreras',result);
+
+				}, function(tx){
+					console.log('error', tx);
+
+				});
+            
+            }else{
+				consulta = 'SELECT c.*, c.rowid, t.nombres, t.apellidos, tx.numero from carreras c ' + 
+				'INNER JOIN taxistas t ON c.taxista_id = t.rowid ' + 
+				'INNER JOIN taxis tx ON c.taxi_id = tx.rowid WHERE c.rowid=? ' +
+				'order by c.rowid desc ';
+				ConexionServ.query(consulta,[usu.rowid]).then(function(result){
+					$scope.carreras = result;
+					for (var i = 0; i < $scope.carreras.length; i++) {
+						$scope.carreras[i].fecha_ini = new Date($scope.carreras[i].fecha_ini);
+						$scope.carreras[i].fecha_fin = new Date($scope.carreras[i].fecha_fin);
+					}
 
 			console.log('se trajeron las carreras',result);
 
@@ -173,6 +213,10 @@ $scope.traer_datos = function(){
 			console.log('error', tx);
 
 		});
+            
+            }
+
+	
 
 	}
 

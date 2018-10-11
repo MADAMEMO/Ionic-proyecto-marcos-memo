@@ -1,20 +1,32 @@
 var app = angular.module('starter');
 
-app.controller('TaxistasCtrl', function($scope, $http, $filter, ConexionServ, $ionicPopup){
+app.controller('TaxistasCtrl', function($scope, $ionicSideMenuDelegate,  $http, $filter, ConexionServ, $ionicPopup){
 
 ConexionServ.createTables();
+$scope.verbuscar = false;
+		$scope.verboton = true;
 
+  $scope.mostrarboton = function(taxi){
+   
+   $scope.verbuscar = !$scope.verbuscar; 
+	   $scope.verboton = !$scope.verboton; 
+  
+  }
+
+	$scope.toggleLeft = function() {
+		$ionicSideMenuDelegate.toggleLeft();
+	};
  $scope.eliminar = function(rowid) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
-     template: '¿Esta seguro de eliminar este taxista?'
+     template: '¿Esta seguro de eliminar este usuario?'
    });
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'DELETE FROM taxistas Where rowid=?'
-        ConexionServ.query(consulta, [rowid]).then(function(result){
-          console.log('se elimino el taxista', result);
+        consulta = 'UPDATE taxistas SET eliminado ="1"  Where rowid=?'
+		ConexionServ.query(consulta, [rowid]).then(function(result){
+          console.log('se elimino el taxi', result);
            $scope.traer_datos();
        
         }, function(tx){
@@ -25,6 +37,7 @@ ConexionServ.createTables();
      }
    });
  };
+
 
 	$scope.CREARTAXISTA = function(taxista_nuevo){
 		if (taxista_nuevo.nombres == undefined) {
@@ -89,7 +102,7 @@ $scope.traer_datos()
   }
 
  $scope.traer_datos = function(){
-	consulta = 'SELECT nombres, apellidos, sexo, documento, celular, fecha_nac, usuario, password, rowid from taxistas'
+	consulta = 'SELECT nombres, apellidos, sexo, documento, celular, fecha_nac, usuario, password, rowid from taxistas  WHERE eliminado = "0"'
 		ConexionServ.query(consulta, []).then(function(result){
 			$scope.taxistas = result;
 			for (var i = 0; i < $scope.taxistas.length; i++) {

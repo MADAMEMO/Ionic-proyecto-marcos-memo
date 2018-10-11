@@ -1,6 +1,6 @@
 var app = angular.module('starter')
 
-app.controller('carrerasmodificarCtrl', function($scope, ConexionServ, $stateParams, $state, $ionicPopup, ionicTimePicker, $state ) {
+app.controller('carrerasmodificarCtrl', function($scope, ConexionServ, $stateParams, $state, $ionicPopup, ionicTimePicker, $state) {
   
     consulta = 'SELECT *, rowid FROM taxistas';
     ConexionServ.query(consulta, []).then(function(result){
@@ -23,13 +23,40 @@ app.controller('carrerasmodificarCtrl', function($scope, ConexionServ, $statePar
   ConexionServ.query(consulta, [$stateParams.carreraId]).then(function(result){
      result[0].fecha_ini = new Date(result[0].fecha_ini);
      result[0].fecha_fin = new Date(result[0].fecha_fin);
-
+     console.log(result)
 
      result[0].hora_ini = '' + result[0].fecha_ini.getHours() + ':' + result[0].fecha_ini.getMinutes();
      result[0].hora_fin = '' + result[0].fecha_fin.getHours() + ':' + result[0].fecha_fin.getMinutes();
     
 
-    $scope.carrera_Editar = result[0];
+      consulta = 'SELECT *, rowid  FROM taxis WHERE rowid=?';
+      ConexionServ.query(consulta, [ result[0].taxi_id ]).then(function(taxi){
+        if (taxi.length > 0) {
+          result[0].taxi_temp = taxi[0].numero;
+        }
+
+        
+
+        $scope.carrera_Editar = result[0];
+      }, function(tx){
+        console.log('error', tx);
+      });
+
+    
+      consulta = 'SELECT *, rowid  FROM users WHERE rowid=?';
+      ConexionServ.query(consulta, [ result[0].registrada_por ]).then(function(users){
+
+        if (users.length > 0) {
+          result[0].usuario_temp = users[0].nombres;
+        }
+
+        $scope.carrera_Editar = result[0];
+      }, function(tx){
+        console.log('error', tx);
+      });
+
+        
+
 
 
 

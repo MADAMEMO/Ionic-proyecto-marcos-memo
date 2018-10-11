@@ -41,11 +41,18 @@
   <ion-side-menu-content>
 
 
-    <ion-view view-title="Dashboard">
-      <ion-content class="padding">
+    <ion-view  cache-view="false"  view-title="Dashboard">
+      <ion-content >
+   
+      <div class="bar bar-header bar-calm">
+        <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
+        <h1 class="title">MENU PRINCIPAL</h1>
+
+      </div>
+        <div style="padding-bottom:  50px">
         <h2>Welcome to Ionic</h2>
 
-        <button ng-click="toggleLeft()">Hola</button>
+  
         <p>
 
         This is the Ionic starter for tabs-based apps. For other starters and ready-made templates, check out the <a href="http://market.ionic.io/starters" target="_blank">Ionic Market</a>.
@@ -55,7 +62,7 @@
         </p>
 
         <div id="map"> gyhjg yf</div>
-
+      </div>
       </ion-content>
     </ion-view>
 

@@ -1,7 +1,19 @@
 angular.module('starter')
 
-.controller('ChatsCtrl', function($scope, Chats, ConexionServ, $ionicLoading, $ionicPopup) {
+.controller('ChatsCtrl', function($scope, Chats, $ionicSideMenuDelegate, ConexionServ, $ionicLoading, $ionicPopup) {
 
+$scope.verbuscar = false;
+    $scope.verboton = true;
+
+  $scope.mostrarboton = function(taxi){
+   
+   $scope.verbuscar = !$scope.verbuscar; 
+     $scope.verboton = !$scope.verboton; 
+  
+  }
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
  $scope.eliminar = function(rowid) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
@@ -10,8 +22,8 @@ angular.module('starter')
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'DELETE FROM users Where rowid=?'
-        ConexionServ.query(consulta, [rowid]).then(function(result){
+        consulta = 'UPDATE users SET eliminado ="1"  Where rowid=?'
+    ConexionServ.query(consulta, [rowid]).then(function(result){
           console.log('se elimino el usuario', result);
            $scope.traer_datos();
        
@@ -86,7 +98,7 @@ angular.module('starter')
 
 
   $scope.traer_datos = function(){
-    consulta = 'SELECT nombres, apellidos, sexo, tipo, documento, celular, fecha_nac, usuario, password, rowid from users'
+    consulta = 'SELECT nombres, apellidos, sexo, tipo, documento, celular, fecha_nac, usuario, password, rowid from users WHERE eliminado = "0"'
     ConexionServ.query(consulta, []).then(function(result){
       $scope.usuarios = result;
       for (var i = 0; i < $scope.usuarios.length; i++) {
