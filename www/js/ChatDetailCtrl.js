@@ -2,6 +2,12 @@ var app = angular.module('starter')
 
 app.controller('ChatDetailCtrl', function($scope, ConexionServ, $stateParams, $state, $ionicPopup) {
   
+  $scope.back = function() {
+
+
+ $state.go('tab.chats')
+
+  };
 
   consulta = 'SELECT *, rowid FROM users WHERE rowid=? '
   ConexionServ.query(consulta, [$stateParams.chatId]).then(function(result){
@@ -35,7 +41,7 @@ app.controller('ChatDetailCtrl', function($scope, ConexionServ, $stateParams, $s
     ConexionServ.query(consulta, [usuario_Editar.nombres, usuario_Editar.apellidos, usuario_Editar.sexo, usuario_Editar.tipo, usuario_Editar.documento, usuario_Editar.celular, usuario_Editar.fecha_nac, usuario_Editar.usuario, usuario_Editar.password, usuario_Editar.rowid, modificado = 0]).then(function(result){
       console.log('se cargo el usuario', result);
           $scope.showAlert();
-          $state.go('tab.Usuarios');
+          $state.go('tab.chats');
            
          
     }, function(tx){

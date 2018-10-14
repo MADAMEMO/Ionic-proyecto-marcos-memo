@@ -2,6 +2,12 @@ var app = angular.module('starter')
 
 app.controller('taximodificarCtrl', function($scope, ConexionServ, $stateParams, $state, $ionicPopup) {
   
+  $scope.back = function() {
+
+
+  $state.go('tab.taxis');
+
+  };
   $scope.dato = {};
 
   consulta = 'SELECT t.*, t.rowid, c.nombres, c.apellidos from taxis t INNER JOIN taxistas c ON t.taxista_id=c.rowid WHERE t.rowid=? '

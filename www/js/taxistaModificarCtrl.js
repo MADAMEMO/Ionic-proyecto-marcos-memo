@@ -2,6 +2,12 @@ var app = angular.module('starter')
 
 app.controller('taxistasmodificarCtrl', function($scope, ConexionServ, $stateParams, $state, $ionicPopup) {
   
+  $scope.back = function() {
+
+ $state.go('tab.taxistas')
+
+
+  };
 
   consulta = 'SELECT *, rowid FROM taxistas WHERE rowid=? '
   ConexionServ.query(consulta, [$stateParams.taxistaId]).then(function(result){

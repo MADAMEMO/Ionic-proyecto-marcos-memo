@@ -2,6 +2,15 @@ var app = angular.module('starter')
 
 app.controller('carrerasmodificarCtrl', function($scope, ConexionServ, $stateParams, $state, $ionicPopup, ionicTimePicker, $state) {
   
+  $scope.back = function() {
+
+ $state.go('tab.carreras')
+
+
+  };
+
+
+
     consulta = 'SELECT *, rowid FROM taxistas';
     ConexionServ.query(consulta, []).then(function(result){
       $scope.taxistas = result;

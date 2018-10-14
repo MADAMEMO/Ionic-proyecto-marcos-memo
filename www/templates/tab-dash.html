@@ -4,36 +4,36 @@
 <ion-side-menus>
   <!-- Left menu -->
   <ion-side-menu side="left">
-    <ion-list>
+    <ion-list style="padding-bottom:  50px">
 
        <ion-item href="#/tab/carreras" class="font-left-menu item-icon-right">
-          ... <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+          ... <i class="icon ion-home"></i>
         </ion-item>
 
           <ion-item href="#/tab/dash" class="font-left-menu item-icon-right">
-          Inicio <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+          Inicio <i class="icon ion-home"></i>
         </ion-item>
 
         <ion-item href="#/tab/carreras" class="font-left-menu item-icon-right">
-          Carreras <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+          Carreras <i class="icon ion-flag"></i>
         </ion-item>
           <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/chats" class="font-left-menu item-icon-right">
-          Usuarios <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+          Usuarios <i class="icon ion-person-stalker "></i>
         </ion-item>
           <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxis" class="font-left-menu item-icon-right">
-          Taxis <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+          Taxis <i class="icon ion-model-s"></i>
         </ion-item>
           <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxistas" class="font-left-menu item-icon-right">
-          Taxistas <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        Taxistas <i class="icon ion-person"></i>
         </ion-item>
+     <br>
         <br>
-  
         <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
-          About <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
-        </ion-item>
+          Ajustes <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
+        </ion-item> 
         <br>
-        <ion-item menu-close href="#/login">
-          Exit
+        <ion-item menu-close href="#/login" class="font-left-menu item-icon-right">
+          Salir <i class="icon ion-arrow-left-c"></i>
         </ion-item>
       </ion-list>
   </ion-side-menu>

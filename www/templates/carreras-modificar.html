@@ -1,9 +1,12 @@
 
 
-<ion-view view-title="{{chat.name}}">
-  <ion-content class="padding">
+<ion-view cache-view="false" view-title="{{chat.name}}">
+  <ion-content  class="padding">
+
 <div ng-show="USER.tipo == 'Admin' || USER.tipo == 'Operador' ">
-      <div class="bar bar-header bar-calm">
+      
+      <div  class="bar bar-header bar-calm">
+        <a ng-click="back()" class="button icon-left ion-chevron-left button-clear button-dark"></a>
         <h1 class="title">Editar Carrera</h1>
       </div>
 
