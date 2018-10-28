@@ -12,32 +12,45 @@ $scope.verbuscar = false;
 	   $scope.verboton = !$scope.verboton; 
   
   }
-
+	$scope.doRefresh = function() {
+	    $scope.traer_datos();
+	    $scope.$broadcast('scroll.refreshComplete');
+	 };
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
 	};
- $scope.eliminar = function(rowid) {
+ $scope.eliminar = function(taxista) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
-     template: '¿Esta seguro de eliminar este usuario?'
+     template: '¿Esta seguro de eliminar este taxista?'
    });
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'UPDATE taxistas SET eliminado ="1"  Where rowid=?'
-		ConexionServ.query(consulta, [rowid]).then(function(result){
-          console.log('se elimino el taxi', result);
-           $scope.traer_datos();
-       
-        }, function(tx){
-          console.log('error', tx);
-        });
+              if (taxista.id == null) {
+        consulta = 'DELETE FROM taxistas Where rowid=?'
+          ConexionServ.query(consulta, [taxista.rowid]).then(function(result){
+            console.log('se elimino el taxista en la compu', result);
+              $scope.traer_datos()
+      
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } else {
+            consulta = 'UPDATE taxistas SET eliminado ="1"  Where rowid=?'
+          ConexionServ.query(consulta, [taxista.rowid]).then(function(result){
+            console.log('se elimino el taxista en la nube', result);
+              $scope.traer_datos()
+              
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } 
      } else {
        return;
      }
    });
  };
-
 
 	$scope.CREARTAXISTA = function(taxista_nuevo){
 		if (taxista_nuevo.nombres == undefined) {
@@ -83,7 +96,7 @@ $scope.verbuscar = false;
 		}
 
 
-		fecha_nac = '' + taxista_nuevo.fecha_nac.getFullYear() + '-' + (taxista_nuevo.fecha_nac.getMonth() + 1) + '-' + (taxista_nuevo.fecha_nac.getDate() + 1);	
+		fecha_nac = '' + taxista_nuevo.fecha_nac.getFullYear() + '-' + (taxista_nuevo.fecha_nac.getMonth() + 1) + '-' + taxista_nuevo.fecha_nac.getDate();	
 
 		consulta = 'INSERT INTO taxistas (nombres, apellidos, sexo, documento, celular, fecha_nac, usuario, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
 		ConexionServ.query(consulta, [taxista_nuevo.nombres, taxista_nuevo.apellidos, taxista_nuevo.sexo, taxista_nuevo.documento, taxista_nuevo.celular, fecha_nac, taxista_nuevo.usuario, taxista_nuevo.password]).then(function(result){
@@ -102,7 +115,7 @@ $scope.traer_datos()
   }
 
  $scope.traer_datos = function(){
-	consulta = 'SELECT nombres, apellidos, sexo, documento, celular, fecha_nac, usuario, password, rowid from taxistas  WHERE eliminado = "0"'
+	consulta = 'SELECT id, nombres, apellidos, sexo, documento, celular, fecha_nac, usuario, password, rowid from taxistas  WHERE eliminado = "0"'
 		ConexionServ.query(consulta, []).then(function(result){
 			$scope.taxistas = result;
 			for (var i = 0; i < $scope.taxistas.length; i++) {
@@ -119,22 +132,7 @@ $scope.traer_datos()
 $scope.traer_datos()
 
 
-    
-	$scope.guardartaxista = function(taxista_Editar){
 
-		
-		consulta = 'UPDATE taxistas SET  nombres=?, apellidos=?, sexo=?, documento=?, celular=?, fecha_nac=?, usuario=?, password=? where rowid=? '
-		ConexionServ.query(consulta, [taxista_Editar.nombres, taxista_Editar.apellidos, taxista_Editar.sexo, taxista_Editar.documento, taxista_Editar.celular, taxista_Editar.fecha_nac, taxista_Editar.usuario, taxista_Editar.password, taxista_Editar.rowid]).then(function(result){
-			console.log('se cargo el taxista', result);
-			$scope.traer_datos()
-		}, function(tx){
-			console.log('error', tx);
-		});
-	
-$scope.ver = false;
-
-
-	}	
 
 
 });

@@ -11,27 +11,58 @@ app.controller('taxisCtrl', function($scope,  $ionicSideMenuDelegate, $http, $fi
 	   $scope.verboton = !$scope.verboton; 
   
   }
+  	$scope.doRefresh = function() {
+	    $scope.traer_datos();
+	    $scope.$broadcast('scroll.refreshComplete');
+	 };
+ $scope.traer_datos = function(){ 
+
+	consulta = 'SELECT t.*, t.id, t.rowid, c.nombres, c.apellidos 	from taxis t INNER JOIN taxistas c ON t.taxista_id = c.rowid where t.eliminado ="0"'
+		ConexionServ.query(consulta, []).then(function(result){
+			$scope.taxis = result;
+			console.log('se subio el taxi', result);
+
+		}, function(tx){
+			console.log('error', tx);
+
+		});
+
+	}
+
+	$scope.traer_datos()
+
 
 
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
 	};
- $scope.eliminar = function(rowid) {
+ $scope.eliminar = function(taxi) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
-     template: '¿Esta seguro de eliminar este usuario?'
+     template: '¿Esta seguro de eliminar este taxi?'
    });
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'UPDATE taxis SET eliminado ="1"  Where rowid=?'
-		ConexionServ.query(consulta, [rowid]).then(function(result){
-          console.log('se elimino el taxi', result);
-           $scope.traer_datos();
-       
-        }, function(tx){
-          console.log('error', tx);
-        });
+              if (taxi.id == null) {
+        consulta = 'DELETE FROM taxis Where rowid=?'
+          ConexionServ.query(consulta, [taxi.rowid]).then(function(result){
+            console.log('se elimino el taxi en la compu', result);
+              $scope.traer_datos()
+      
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } else {
+            consulta = 'UPDATE taxis SET eliminado ="1"  Where rowid=?'
+          ConexionServ.query(consulta, [taxi.rowid]).then(function(result){
+            console.log('se elimino el taxi en la nube', result);
+              $scope.traer_datos()
+              
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } 
      } else {
        return;
      }
@@ -79,21 +110,7 @@ app.controller('taxisCtrl', function($scope,  $ionicSideMenuDelegate, $http, $fi
  
   }
 
- $scope.traer_datos = function(){ 
-
-	consulta = 'SELECT *, rowid from taxis  WHERE eliminado = "0"'
-		ConexionServ.query(consulta, []).then(function(result){
-			$scope.taxis = result;
-			console.log('se subio el taxi', result);
-
-		}, function(tx){
-			console.log('error', tx);
-
-		});
-
-	}
-
-	$scope.traer_datos()
+  	$scope.traer_datos()
 
 	consulta = 'SELECT *, rowid from taxistas  WHERE eliminado = "0"'
 		ConexionServ.query(consulta, []).then(function(result){
@@ -104,6 +121,17 @@ app.controller('taxisCtrl', function($scope,  $ionicSideMenuDelegate, $http, $fi
 			console.log('error', tx);
 
 		});
+	consulta = 'SELECT *, rowid from taxistas'
+		ConexionServ.query(consulta, []).then(function(result){
+			$scope.taxistas = result;
+			console.log('se trajo el taxista', result);
+
+		}, function(tx){
+			console.log('error', tx);
+
+		});
+
+
 
 
     

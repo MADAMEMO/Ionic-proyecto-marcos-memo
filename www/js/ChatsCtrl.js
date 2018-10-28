@@ -1,7 +1,10 @@
 angular.module('starter')
 
 .controller('ChatsCtrl', function($scope, Chats, $ionicSideMenuDelegate, ConexionServ, $ionicLoading, $ionicPopup) {
-
+  $scope.doRefresh = function() {
+      $scope.traer_datos();
+      $scope.$broadcast('scroll.refreshComplete');
+   };
 $scope.verbuscar = false;
     $scope.verboton = true;
 
@@ -14,7 +17,7 @@ $scope.verbuscar = false;
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
- $scope.eliminar = function(rowid) {
+ $scope.eliminar = function(usuario) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
      template: '¿Esta seguro de eliminar este usuario?'
@@ -22,14 +25,25 @@ $scope.verbuscar = false;
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'UPDATE users SET eliminado ="1"  Where rowid=?'
-    ConexionServ.query(consulta, [rowid]).then(function(result){
-          console.log('se elimino el usuario', result);
-           $scope.traer_datos();
-       
-        }, function(tx){
-          console.log('error', tx);
-        });
+              if (usuario.id == null) {
+        consulta = 'DELETE FROM users Where rowid=?'
+          ConexionServ.query(consulta, [usuario.rowid]).then(function(result){
+            console.log('se elimino el usuario', result);
+              $scope.traer_datos()
+      
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } else {
+            consulta = 'UPDATE users SET eliminado ="1"  Where rowid=?'
+          ConexionServ.query(consulta, [usuario.rowid]).then(function(result){
+            console.log('se elimino el usuario en', result);
+              $scope.traer_datos()
+              
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } 
      } else {
        return;
      }
@@ -75,8 +89,8 @@ $scope.verbuscar = false;
       return;
     }
 
-    
-    fecha_nac = '' + usuario_nuevo.fecha_nac.getFullYear() + '-' + (usuario_nuevo.fecha_nac.getMonth() + 1) + '-' + (usuario_nuevo.fecha_nac.getDate() + 1);
+   
+        fecha_nac = '' + usuario_nuevo.fecha_nac.getFullYear() + '-' + (usuario_nuevo.fecha_nac.getMonth() + 1) + '-' + usuario_nuevo.fecha_nac.getDate();  
 
     consulta = 'INSERT INTO users (nombres, apellidos, sexo, tipo, documento, celular, fecha_nac, usuario, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
     ConexionServ.query(consulta, [usuario_nuevo.nombres, usuario_nuevo.apellidos, usuario_nuevo.sexo, usuario_nuevo.tipo, usuario_nuevo.documento, usuario_nuevo.celular, fecha_nac, usuario_nuevo.usuario, usuario_nuevo.password]).then(function(result){
@@ -98,19 +112,19 @@ $scope.verbuscar = false;
 
 
   $scope.traer_datos = function(){
-    consulta = 'SELECT nombres, apellidos, sexo, tipo, documento, celular, fecha_nac, usuario, password, rowid from users WHERE eliminado = "0"'
-    ConexionServ.query(consulta, []).then(function(result){
-      $scope.usuarios = result;
-      for (var i = 0; i < $scope.usuarios.length; i++) {
-          $scope.usuarios[i].fecha_nac = new Date($scope.usuarios[i].fecha_nac);
-          
-        }
-      console.log('se subio el usuario', result);
+    consulta = 'SELECT *, rowid from users WHERE eliminado = "0" and rowid != "1"'
+  ConexionServ.query(consulta, []).then(function(result){
+    $scope.usuarios = result;
+    for (var i = 0; i < $scope.usuarios.length; i++) {
+        $scope.usuarios[i].fecha_nac = new Date($scope.usuarios[i].fecha_nac);
+        
+      }
+    console.log('se subio el usuario', result);
 
-    }, function(tx){
-      console.log('error', tx);
-    })
-  }
+  }, function(tx){
+    console.log('error', tx);
+  })
+}
 $scope.traer_datos()
 
 

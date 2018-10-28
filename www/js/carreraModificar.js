@@ -146,16 +146,27 @@ app.controller('carrerasmodificarCtrl', function($scope, ConexionServ, $statePar
     fechayhora_inicio   = fecha_inicio  + ' ' +   $scope.carrera_Editar.hora_ini;
     fechayhora_fin    = fecha_fin   + ' ' +   $scope.carrera_Editar.hora_fin;
 
-  consulta = 'UPDATE carreras SET  taxi_id=?, taxista_id=?, zona=?, fecha_ini=?, lugar_inicio=?, lugar_fin=?, fecha_fin=?, estado=? where rowid=? '
-    ConexionServ.query(consulta, [carrera_Editar.taxi, carrera_Editar.taxista, carrera_Editar.zona, fechayhora_inicio, carrera_Editar.lugar_inicio, carrera_Editar.lugar_fin, fechayhora_fin, carrera_Editar.estado, carrera_Editar.rowid]).then(function(result){
-      console.log('se cargo la carrera', result);
-
+     if (carrera_Editar.id == null) {
+    consulta = 'UPDATE carreras SET  taxi_id=?, taxista_id=?, zona=?, fecha_ini=?, lugar_inicio=?, lugar_fin=?, fecha_fin=?, estado=? where rowid=? '
+    ConexionServ.query(consulta, [carrera_Editar.taxi.rowid, carrera_Editar.taxista.rowid, carrera_Editar.zona, fechayhora_inicio, carrera_Editar.lugar_inicio, carrera_Editar.lugar_fin, fechayhora_fin, carrera_Editar.estado, carrera_Editar.rowid]).then(function(result){
+      console.log('se cargo la carrera en la compu', result);
       $scope.showAlert();
       $state.go('tab.carreras')
-                 
-     }), function(tx){
-      console.log('error', tx);
-    };
+        }, function(tx){
+          console.log('error', tx);
+        });
+  
+  } else {
+      consulta = 'UPDATE carreras SET  taxi_id=?, taxista_id=?, zona=?, fecha_ini=?, lugar_inicio=?, lugar_fin=?, fecha_fin=?, estado=?, modificado=? where rowid=? '
+    ConexionServ.query(consulta, [carrera_Editar.taxi.rowid, carrera_Editar.taxista.rowid, carrera_Editar.zona, fechayhora_inicio, carrera_Editar.lugar_inicio, carrera_Editar.lugar_fin, fechayhora_fin, carrera_Editar.estado, "1", carrera_Editar.rowid]).then(function(result){
+      console.log('se cargo la carrera en la nube', result);
+              $scope.showAlert();
+      $state.go('tab.carreras')
+        }, function(tx){
+          console.log('error', tx);
+        });
+  
+  }
   } 
 
 }); 

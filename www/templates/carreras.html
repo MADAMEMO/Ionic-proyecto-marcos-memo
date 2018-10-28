@@ -1,4 +1,4 @@
-
+   
 <ion-side-menus>
   <!-- Left menu -->
    <ion-side-menu side="left">
@@ -24,6 +24,9 @@
           <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxistas" class="font-left-menu item-icon-right">
         Taxistas <i class="icon ion-person"></i>
         </ion-item>
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/nube" class="font-left-menu item-icon-right">
+        Nube <i class="icon ion-cloud"></i>
+        </ion-item>
      <br>
         <br>
         <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
@@ -40,7 +43,10 @@
 
 <ion-view cache-view="false" view-title="carreras">
   <ion-content>
-
+ <ion-refresher
+    pulling-text="Actualizar..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
 <div class="bar bar-header bar-calm">
   <button class="button icon ion-navicon"></button>
   <h1 class="title">Listado Carreras</h1>
@@ -68,11 +74,11 @@
 
         </div>
             <div style=" text-align: center" >
-                  <BUTTON class="btn-estado"  ng-click="en_curso(carrera_estado)" style="margin-top: 27px; padding: 10px " ng-disabled="carrera_estado.estado=='En curso'">EN CURSO</BUTTON>
+                  <BUTTON class=" button button-calm btn-estado"  ng-click="en_curso(carrera_estado)" style="margin-top: 27px; padding: 10px " ng-disabled="carrera_estado.estado=='En curso'">EN CURSO</BUTTON>
 
-                  <BUTTON class="btn-estado" ng-click="finalizada(carrera_estado)"   ng-disabled="carrera_estado.estado=='Finalizada'" style="margin-top: 27px; padding: 10px " >FINALIZADA</BUTTON>
+                  <BUTTON class=" button button-calm btn-estado" ng-click="finalizada(carrera_estado)"   ng-disabled="carrera_estado.estado=='Finalizada'" style="margin-top: 27px; padding: 10px " >FINALIZADA</BUTTON>
 
-                  <BUTTON class="btn-estado"  ng-click="cancelada(carrera_estado)"  ng-disabled="carrera_estado.estado=='Cancelada'" style="margin-top: 27px; padding: 10px " >CANCELADA</BUTTON>
+                  <BUTTON class=" button button-calm btn-estado"  ng-click="cancelada(carrera_estado)"  ng-disabled="carrera_estado.estado=='Cancelada'" style="margin-top: 27px; padding: 10px " >CANCELADA</BUTTON>
 
             </div>
         </div>
@@ -91,7 +97,7 @@
 
 
 
-        <ion-option-button ng-show="USER.tipo == 'Admin' || USER.tipo == 'Operador' " class="button-assertive" ng-click="eliminar(Carrera.rowid)">
+        <ion-option-button ng-show="USER.tipo == 'Admin' || USER.tipo == 'Operador' " class="button-assertive" ng-click="eliminar(Carrera)">
           Eliminar
         </ion-option-button>
         <ion-option-button ng-show="USER.tipo != 'Admin' && USER.tipo != 'Operador' " ng-click="go_modificar(Carrera.rowid)" class="button-royal" >
@@ -111,12 +117,25 @@
 
            
         <div class="list">
+         
               <label class="item item-input item-select">
+                 <div class="input-label">
+              Taxi 
+            </div>
+          
+                <select placeholder="Taxi"  type="text" ng-model="carrera_nuevo.taxi" on-select="select_taxista(carrera_nuevo)"  name="">
+                  
+                 <option value="{{taxi.rowid}}" ng-repeat="taxi in taxis">{{taxi.numero}}-{{taxi.placa}}</option>
+          
+                </select>
+
+            </label>
+                 <label class="item item-input item-select">
                  <div class="input-label">
               Taxista 
             </div>
           
-                <select placeholder="Taxista"  type="text" ng-model="carrera_nuevo.taxista"  name="">
+                <select  placeholder="Taxista"  type="text" ng-model="carrera_nuevo.taxista"  name="">
                   
                  <option value="{{taxista.rowid}}" ng-repeat="taxista in taxistas">{{taxista.nombres}}   {{taxista.apellidos}}</option>
           
@@ -126,22 +145,6 @@
            
             </label>
 
-              <label class="item item-input item-select">
-                 <div class="input-label">
-              Taxi 
-            </div>
-          
-                <select placeholder="Taxi"  type="text" ng-model="carrera_nuevo.taxi"  name="">
-                  
-                 <option value="{{taxi.rowid}}" ng-repeat="taxi in taxis">{{taxi.numero}}-{{taxi.placa}}</option>
-          
-                </select>
-          
-
-
-
-           
-            </label>
          </div>
 
         <div class="list">

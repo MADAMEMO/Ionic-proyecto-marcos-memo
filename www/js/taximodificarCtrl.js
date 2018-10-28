@@ -50,19 +50,29 @@ app.controller('taximodificarCtrl', function($scope, ConexionServ, $stateParams,
 
   $scope.GUARDARTAXI = function(taxi_Editar){
   
-
-   consulta = 'UPDATE taxis SET modelo=?, numero=?, placa=?, taxista_id=?, propietario=?, Soat=?, Seguro=? where rowid=? '
+      if (taxi_Editar.id == null) {
+        consulta = 'UPDATE taxis SET modelo=?, numero=?, placa=?, taxista_id=?, propietario=?, Soat=?, Seguro=? where rowid=? '
     ConexionServ.query(consulta, [taxi_Editar.modelo, taxi_Editar.numero, taxi_Editar.placa,  taxi_Editar.taxista_id, taxi_Editar.propietario, taxi_Editar.Soat, taxi_Editar.Seguro, taxi_Editar.rowid]).then(function(result){
-      console.log('se cargo el taxi', result);
-
+      console.log('se cargo el taxi en el compu', result);
+      
           $scope.showAlert();
           $state.go('tab.taxis');
-           
-         
     }, function(tx){
       console.log('error', tx);
     });
-    $scope.ver = false;
+
+    } else {
+    consulta = 'UPDATE taxis SET modelo=?, numero=?, placa=?, taxista_id=?, propietario=?, Soat=?, Seguro=?, modificado=? where rowid=? '
+    ConexionServ.query(consulta, [taxi_Editar.modelo, taxi_Editar.numero, taxi_Editar.placa,  taxi_Editar.taxista_id, taxi_Editar.propietario, taxi_Editar.Soat, taxi_Editar.Seguro, "1", taxi_Editar.rowid]).then(function(result){
+      console.log('se cargo el taxi en la nubeichon', result);
+      
+          $scope.showAlert();
+          $state.go('tab.taxis');
+    }, function(tx){
+      console.log('error', tx);
+    });
+    }
+ 
   } 
 
 }); 

@@ -26,6 +26,9 @@
           <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxistas" class="font-left-menu item-icon-right">
         Taxistas <i class="icon ion-person"></i>
         </ion-item>
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/nube" class="font-left-menu item-icon-right">
+        Nube <i class="icon ion-cloud"></i>
+        </ion-item>
      <br>
         <br>
         <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
@@ -44,7 +47,10 @@
 
 <ion-view cache-view="false" view-title="chats">
   <ion-content>
-
+ <ion-refresher
+    pulling-text="Actualizar..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
 
  <div class="bar bar-header bar-calm">
   <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
@@ -73,7 +79,7 @@
         <p>{{Usuario.apellidos}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="eliminar(Usuario.rowid)">
+        <ion-option-button class="button-assertive" ng-click="eliminar(Usuario)">
           Delete
         </ion-option-button>
      

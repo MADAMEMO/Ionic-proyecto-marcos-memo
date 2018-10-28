@@ -7,6 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ionic-timepicker'])
 
+.constant('rutaServidor', {
+    //ruta: 'http://edilson.micolevirtual.com/feryz_server/public/'
+    ruta: 'http://192.168.100.31/feryz_server/public/'
+})
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -117,6 +122,15 @@ angular.module('starter', ['ionic', 'ionic-timepicker'])
     })
   
 
+  .state('tab.nube', {
+    url: '/nube',
+    views: {
+      'tab-nube': {
+        templateUrl: 'templates/nube.html',
+        controller: 'nubeCtrl'
+      }
+    }
+  })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
@@ -195,3 +209,4 @@ window.fixDate = function(fec){
 
   return fecha;
 }
+

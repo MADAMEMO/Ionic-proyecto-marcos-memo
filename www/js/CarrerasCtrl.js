@@ -2,7 +2,10 @@ angular.module('starter')
 
 .controller('CarrerasCtrl', function($scope, Chats, ConexionServ, $ionicLoading, $ionicPopup,  $ionicSideMenuDelegate, ionicTimePicker, $state,USER){
 	console.log(usu);
-
+	$scope.doRefresh = function() {
+	    $scope.traer_datos();
+	    $scope.$broadcast('scroll.refreshComplete');
+	 };
 	
 		$scope.verbuscar = false;
 		$scope.verboton = true;
@@ -74,27 +77,39 @@ $scope.hora_fin = '' + fecha.getHours() + ':' + fecha.getMinutes();
 	 
 
 
- $scope.eliminar = function(rowid) {
+ $scope.eliminar = function(carrera) {
    var confirmPopup = $ionicPopup.confirm({
      title: 'Eliminar',
-     template: '¿Esta seguro de eliminar este usuario?'
+     template: '¿Esta seguro de eliminar este carrera?'
    });
 
    confirmPopup.then(function(res) {
      if(res) {
-        consulta = 'UPDATE carreras SET eliminado ="1"  Where rowid=?'
-		ConexionServ.query(consulta, [rowid]).then(function(result){
-          console.log('se elimino la carrera', result);
-           $scope.traer_datos();
-       
-        }, function(tx){
-          console.log('error', tx);
-        });
+              if (carrera.id == null) {
+        consulta = 'DELETE FROM carreras Where rowid=?'
+          ConexionServ.query(consulta, [carrera.rowid]).then(function(result){
+            console.log('se elimino el carrera en la compu', result);
+              $scope.traer_datos()
+      
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } else {
+            consulta = 'UPDATE carreras SET eliminado ="1"  Where rowid=?'
+          ConexionServ.query(consulta, [carrera.rowid]).then(function(result){
+            console.log('se elimino el carrera en la nube', result);
+              $scope.traer_datos()
+              
+          }, function(tx){
+            console.log('error', tx);
+          });
+        } 
      } else {
        return;
      }
    });
  };
+
 
 
 
@@ -122,8 +137,7 @@ $scope.hora_fin = '' + fecha.getHours() + ':' + fecha.getMinutes();
 		}, function(tx){
 			console.log('error', tx);
 		});
-		
-
+	
 
 	$scope.CREARCARRERA = function(carrera_nuevo){
 
@@ -154,6 +168,22 @@ $scope.hora_fin = '' + fecha.getHours() + ':' + fecha.getMinutes();
 
 
 
+	$scope.select_taxista = function(carrera_nuevo){
+
+		consulta = 'SELECT *, rowid FROM taxistas WHERE rowid =?';
+			ConexionServ.query(consulta, [carrera_nuevo.taxi.taxista_id]).then(function(result){
+
+				if (result.length > 0) {
+					$scope.carrera_nuevo.taxista = result[0];
+				}
+				
+			}, function(tx){
+				console.log('error', tx);
+			});
+
+
+	}
+
 /*
 $scope.traer_datos = function(){
 	consulta = 'SELECT taxi_id, taxista_id, fecha_ini, lugar_inicio, lugar_fin, fecha_fin, estado, rowid from carreras'
@@ -175,10 +205,10 @@ $scope.traer_datos = function(){
 
             	console.log(usu);
             if (usu.tipo == 'Operador' || usu.tipo == 'Admin') {
-			consulta = 'SELECT c.*, c.rowid, t.nombres, t.apellidos, tx.numero from carreras c ' + 
-				'INNER JOIN taxistas t ON c.taxista_id = t.rowid ' + 
-				'INNER JOIN taxis tx ON c.taxi_id = tx.rowid WHERE c.eliminado = "0"' +
-				'order by c.rowid desc';
+				consulta = 'SELECT c.*, c.rowid, t.nombres, t.apellidos, tx.numero from carreras c ' + 
+					'INNER JOIN taxistas t ON c.taxista_id = t.rowid ' + 
+					'INNER JOIN taxis tx ON c.taxi_id = tx.rowid WHERE c.eliminado = "0"' +
+					'order by c.rowid desc';
 
 				
 				ConexionServ.query(consulta, []).then(function(result){
@@ -197,9 +227,9 @@ $scope.traer_datos = function(){
             
             }else{
 				consulta = 'SELECT c.*, c.rowid, t.nombres, t.apellidos, tx.numero from carreras c ' + 
-				'INNER JOIN taxistas t ON c.taxista_id = t.rowid ' + 
-				'INNER JOIN taxis tx ON c.taxi_id = tx.rowid WHERE c.rowid=? ' +
-				'order by c.rowid desc ';
+					'INNER JOIN taxistas t ON c.taxista_id = t.rowid ' + 
+					'INNER JOIN taxis tx ON c.taxi_id = tx.rowid WHERE c.rowid=? ' +
+					'order by c.rowid desc ';
 				ConexionServ.query(consulta,[usu.rowid]).then(function(result){
 					$scope.carreras = result;
 					for (var i = 0; i < $scope.carreras.length; i++) {

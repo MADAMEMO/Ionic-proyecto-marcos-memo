@@ -28,6 +28,9 @@
           <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/taxistas" class="font-left-menu item-icon-right">
         Taxistas <i class="icon ion-person"></i>
         </ion-item>
+          <ion-item  ng-show="USER.tipo == 'Admin'"  href="#/tab/nube" class="font-left-menu item-icon-right">
+        Nube <i class="icon ion-cloud"></i>
+        </ion-item>
      <br>
         <br>
         <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
@@ -47,7 +50,10 @@
   
 
   <ion-content>
-
+ <ion-refresher
+    pulling-text="Actualizar..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
  <div class="bar bar-header bar-calm">
   <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
   <h1 class="title">Listado Taxis</h1>
@@ -79,7 +85,7 @@
         <p>{{Taxi.placa}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="eliminar(Taxi.rowid)">
+        <ion-option-button class="button-assertive" ng-click="eliminar(Taxi)">
           Delete
         </ion-option-button>
      
