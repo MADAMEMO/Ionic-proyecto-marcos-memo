@@ -8,28 +8,28 @@ navigation history that also transitions its views in and out.
 
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
-  <ion-tab ng-show="USER.tipo == 'Admin'" title="Inicio" icon-off="icon ion-home" icon-on="icon ion-home" href="#/tab/dash">
+  <ion-tab title="Inicio" icon-off="icon ion-home" icon-on="icon ion-home" href="#/tab/dash">
     <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
-  
+
   <!-- Chats Tab -->
-  <ion-tab ng-show="USER.tipo == 'Admin'" title="Usuarios" icon-off="ion-person-stalker" icon-on="ion-android-contact" href="#/tab/chats">
+  <ion-tab ng-if="USER.tipo == 'Admin'" title="Usuarios" icon-off="ion-person-stalker" icon-on="ion-android-contact" href="#/tab/chats">
     <ion-nav-view name="tab-chats"></ion-nav-view>
-    
+
   </ion-tab>
     <!-- Chats Tab -->
-  <ion-tab ng-show="USER.tipo == 'Admin'" title="Taxis" icon-off="ion-model-s" icon-on="ion-model-s" href="#/tab/taxis">
+  <ion-tab ng-if="USER.tipo == 'Admin'" title="Taxis" icon-off="ion-model-s" icon-on="ion-model-s" href="#/tab/taxis">
     <ion-nav-view name="tab-taxis"></ion-nav-view>
   </ion-tab>
     <!-- Chats Tab -->
-  <ion-tab ng-show="USER.tipo == 'Admin'" title="Taxistas" icon-off="ion-person" icon-on="ion-person-stalker" href="#/tab/taxistas">
+  <ion-tab ng-if="USER.tipo == 'Admin'" title="Taxistas" icon-off="ion-person" icon-on="ion-person-stalker" href="#/tab/taxistas">
     <ion-nav-view name="tab-taxistas"></ion-nav-view>
   </ion-tab>
     <!-- Chats Tab -->
   <ion-tab title="Carreras" icon-off="ion-flag" icon-on="ion-flag" href="#/tab/carreras">
     <ion-nav-view name="tab-carreras"></ion-nav-view>
   </ion-tab>
-   <ion-tab title="Nube" icon-off="ion-cloud" icon-on="ion-cloud" href="#/tab/nube">
+   <ion-tab ng-if="USER.tipo == 'Admin'" title="Nube" icon-off="ion-cloud" icon-on="ion-cloud" href="#/tab/nube">
     <ion-nav-view name="tab-nube"></ion-nav-view>
   </ion-tab>
 

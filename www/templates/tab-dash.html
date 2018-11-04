@@ -33,7 +33,7 @@
         <br>
         <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
           Ajustes <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
-        </ion-item> 
+        </ion-item>
         <br>
         <ion-item menu-close href="#/login" class="font-left-menu item-icon-right">
           Salir <i class="icon ion-arrow-left-c"></i>
@@ -46,7 +46,7 @@
 
     <ion-view  cache-view="false"  view-title="Dashboard">
       <ion-content >
-   
+
       <div class="bar bar-header bar-calm">
         <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
         <h1 class="title">MENU PRINCIPAL</h1>
@@ -55,16 +55,21 @@
         <div style="padding-bottom:  50px">
         <h2>Welcome to Ionic</h2>
 
-  
+
         <p>
 
-        This is the Ionic starter for tabs-based apps. For other starters and ready-made templates, check out the <a href="http://market.ionic.io/starters" target="_blank">Ionic Market</a>.
-        </p>
-        <p>
-          <b>Psst!</b> - Try <a href="http://view.ionic.io/">Ionic View</a> to easily share and test your app with clients and co-workers.
+        Bienvenido. Aquí debería salir el mapa en futuras versiones.
         </p>
 
+        <div>
+          {{posicion}}
+        </div>
+
+
+         <!-- Desactivamos el mapa porque nos cobran con tantas llamadas
         <div id="map"> gyhjg yf</div>
+        -->
+
       </div>
       </ion-content>
     </ion-view>

@@ -1,4 +1,4 @@
-   
+
 <ion-side-menus>
   <!-- Left menu -->
    <ion-side-menu side="left">
@@ -31,7 +31,7 @@
         <br>
         <ion-item href="#/menu/about" class="font-left-menu item-icon-right">
           Ajustes <i class="icon ion-chevron-right icon-acessory accessory-size"></i>
-        </ion-item> 
+        </ion-item>
         <br>
         <ion-item menu-close href="#/login" class="font-left-menu item-icon-right">
           Salir <i class="icon ion-arrow-left-c"></i>
@@ -52,20 +52,20 @@
   <h1 class="title">Listado Carreras</h1>
 </div>
 
-  <div  style="padding-top: 40px">
-    <button  ng-click="mostrarboton()" ng-show="verboton"  class="button button-stable icon ion-ios-search placeholder-icon  ">
-  
-</button>
+<div  style="padding-top: 40px">
+
+ <!-- <button  ng-click="mostrarboton()" ng-show="verboton"  class="button button-stable icon ion-ios-search placeholder-icon  ">
+    </button>-->
 
 
-<div  ng-show="verbuscar" class="bar bar-header item-input-inset">
-<label class="item-input-wrapper">
-  <i class="icon ion-ios-search placeholder-icon"></i>
-   <input type="search" placeholder="Buscar..." ng-model="text_buscar">
-</label>
-<button ng-click="mostrarboton()" class="button button-clear button-positive">
-  Cancelar
-</button>
+<div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" placeholder="Buscar..." ng-model="text_buscar">
+  </label>
+   <!--<button ng-click="mostrarboton()" class="button button-clear button-positive">
+    Cancelar
+  </button>-->
 </div>
 
           <div  ng-show="USER.tipo == 'Admin'" class=" content mt-3">
@@ -85,15 +85,15 @@
       </div>
 
     <ion-list>
-      <ion-item  ng-click="modificarcarrera(Carrera)" class="manito" ng-class="{'fondo-seleccionado': carrera.seleccionada}" class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras  | filter:text_buscar"  type="item-text-wrap" > 
-       
+      <ion-item  ng-click="modificarcarrera(Carrera)" class="manito" ng-class="{'fondo-seleccionado': carrera.seleccionada}" class="item-remove-animate item-avatar item-icon-right"  ng-repeat="Carrera in carreras  | filter:text_buscar"  type="item-text-wrap" >
+
         <h2>{{Carrera.lugar_inicio}}</h2>
 
         <p>taxi: {{Carrera.numero}}</p>
 
         <p>Estado: {{Carrera.estado}}</p>
 
-        
+
 
 
 
@@ -115,34 +115,34 @@
 
         <form ng-show="ver2 " class="list">
 
-           
+
         <div class="list">
-         
+
               <label class="item item-input item-select">
                  <div class="input-label">
-              Taxi 
+              Taxi
             </div>
-          
+
                 <select placeholder="Taxi"  type="text" ng-model="carrera_nuevo.taxi" on-select="select_taxista(carrera_nuevo)"  name="">
-                  
+
                  <option value="{{taxi.rowid}}" ng-repeat="taxi in taxis">{{taxi.numero}}-{{taxi.placa}}</option>
-          
+
                 </select>
 
             </label>
                  <label class="item item-input item-select">
                  <div class="input-label">
-              Taxista 
+              Taxista
             </div>
-          
-                <select  placeholder="Taxista"  type="text" ng-model="carrera_nuevo.taxista"  name="">
-                  
-                 <option value="{{taxista.rowid}}" ng-repeat="taxista in taxistas">{{taxista.nombres}}   {{taxista.apellidos}}</option>
-          
-                </select>
-          
 
-           
+                <select  placeholder="Taxista"  type="text" ng-model="carrera_nuevo.taxista"  name="">
+
+                 <option value="{{taxista.rowid}}" ng-repeat="taxista in taxistas">{{taxista.nombres}}   {{taxista.apellidos}}</option>
+
+                </select>
+
+
+
             </label>
 
          </div>
@@ -157,7 +157,7 @@
           <ion-radio type="radio" value="Z2" name="Zona" ng-model="carrera_nuevo.zona">Z2</ion-radio>
           <ion-radio type="radio" value="Z3" name="Zona" ng-model="carrera_nuevo.zona">Z3</ion-radio>
         </div>
-      
+
         <div class="list">
             <label class="item item-input">
                <span class="input-label">Lugar Inicio</span>
@@ -194,25 +194,25 @@
                 <button  ng-model="carrera_nuevo.hora_fin" value="" class="button button-light" ng-click="mostarhorafinal()">{{hora_fin}}</button>
             </label>
            </div>
-           
+
           <div class="list">
             <label class="item item-input">
               <span class="input-label">Estado</span>
 
-          </label>   
+          </label>
 
           <ion-radio type="radio" value="En curso" name="Estado" ng-model="carrera_nuevo.estado">En curso</ion-radio>
           <ion-radio type="radio" value="Finalizada" name="Estado" ng-model="carrera_nuevo.estado">Finalizada</ion-radio>
           <ion-radio type="radio" value="Cancelada" name="Estado" ng-model="carrera_nuevo.estado">Cancelada</ion-radio>
-   
+
         </div>
-   
+
             <br>
-              <button class="button button-full button-positive" ng-click="CREARCARRERA(carrera_nuevo)" >Guardar</button> 
-               <button class="button button-full button-assertive" ng-click="mostrartabla()" >Cancelar</button> 
+              <button class="button button-full button-positive" ng-click="CREARCARRERA(carrera_nuevo)" >Guardar</button>
+               <button class="button button-full button-assertive" ng-click="mostrartabla()" >Cancelar</button>
           </form>
         </div>
-  
+
   </ion-content>
 </ion-view>
   </ion-side-menu-content>

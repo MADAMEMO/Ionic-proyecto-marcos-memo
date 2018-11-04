@@ -2,21 +2,27 @@
 
 .controller('TabCtrl', function($scope, ConexionServ,  $ionicSideMenuDelegate, USER) {
 
-	console.log(USER);
 	$scope.USER = USER;
 })
 
 
-.controller('DashCtrl', function($scope, ConexionServ,  $ionicSideMenuDelegate, USER) {
+.controller('DashCtrl', function($scope, ConexionServ,  $ionicSideMenuDelegate, USER, $http, rutaServidor) {
 
 	$scope.USER = USER;
+  console.log(USER);
 
 	function onSuccess(position) {
-
+    /*
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: position.coords.latitude, lng: position.coords.longitude},
       zoom: 14
     });
+    */
+    $http.put(rutaServidor.ruta + 'taxis/guardar-posicion', {taxi_id: USER.taxi_id, longitud: position.coords.longitude, latitud: position.coords.latitude}).then(function(result){
+      $scope.posicion = result.data.posicion;
+    }, function(r2){
+      console.log('Error', r2)
+    })
   }
 
   // onError Callback receives a PositionError object
@@ -908,9 +914,9 @@
 
 
 .controller('AccountCtrl', function($scope, $http, $filter, ConexionServ, AuthServ,  $state) {
- 	
+
  	console.log($scope.USER);
- 
+
    $scope.passwords = {
    		antiguo: '',
    		nuevo: '',
@@ -923,13 +929,13 @@
 		ConexionServ.query(consulta, [usu.nombres,usu.apellidos, usu.sexo, usu.documento, usu.celular,fecha_nac,  usu.rowid]).then(function(result){
 			console.log('se cargo el usuario', result);
 			AuthServ.update_user_storage(usu);
-			
+
 		}, function(tx){
 			console.log('error', tx);
 
 		});
-	
-	}	
+
+	}
 
 	$scope.cambiar_pass = function(passwords){
 
@@ -938,23 +944,23 @@
 			console.log('No coincide la contraseña nueva');
 			return;
 		}
-		
+
 		datos = { username: $scope.USER.usuario, password: passwords.antiguo}
-		
+
 		AuthServ.loguear(datos).then(function(){
-			
+
 			consulta = 'UPDATE users SET password=? WHERE rowid=?';
 			ConexionServ.query(consulta, [passwords.nuevo, $scope.USER.rowid]).then(function(){
-			console.log('CONTRASEÑA CAMBIADA', result);	
+			console.log('CONTRASEÑA CAMBIADA', result);
 			}, function(){
-			console.log('CONTRASEÑA NO CAMBIADA', result);		
+			console.log('CONTRASEÑA NO CAMBIADA', result);
 			})
 
 		}, function(err){
-		console.log('CONTRASEÑA ANTIGUA INVALIDA ', err);		
-		
+		console.log('CONTRASEÑA ANTIGUA INVALIDA ', err);
+
 		});
-	}	
+	}
 
 
 
