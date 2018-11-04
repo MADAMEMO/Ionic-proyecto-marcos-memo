@@ -1,8 +1,9 @@
 var app = angular.module('starter');
 
-app.controller('nubeCtrl', function($scope, $http, $filter, ConexionServ, rutaServidor, $ionicPopup){
+app.controller('nubeCtrl', function($scope, $http, $filter, ConexionServ, rutaServidor, $ionicPopup, $ionicLoading){
  	
- 	$scope.mostrardatos = false;
+ 	$scope.mostrardatos 	= false;
+ 	$scope.data 			= {};
  
 	$scope.doRefresh = function() {
 	    $scope.traer_datos();
@@ -17,58 +18,88 @@ app.controller('nubeCtrl', function($scope, $http, $filter, ConexionServ, rutaSe
  	}
 
 	$scope.descargar_datos = function (){
-		$http.get(rutaServidor.ruta + 'taxis/all').then (function(result){
-			taxis = result.data.taxis;
-			taxistas = result.data.taxistas;
-			usuarios = result.data.usuarios;
-			carreras = result.data.carreras;
 
-			for (var i = 0; i < taxis.length; i++) {
-			 	taxis[i] 
+			var confirmPopup = $ionicPopup.confirm({
+		     title: 'Descargar datos',
+		     template: '¿Esta seguro de Descargar los datos?'
+		   });
 
-			 
-				consulta = 'INSERT INTO taxis ( id, rowid, numero, placa, taxista_id, propietario) VALUES( ?, ?, ?, ?, ?, ?)'
-					ConexionServ.query(consulta, [taxis[i].id, taxis[i].id, taxis[i].numero, taxis[i].placa, taxis[i].taxista_id, taxis[i].propietario]).then(function(result){
-						console.log('se cargo el taxi', result);
+		   confirmPopup.then(function(res) {
+		     console.log(res)
+		     if(res) { 
+
+
+						    $ionicLoading.show({
+						      template: 'Descargando...',
+						      duration: 20000
+						    }).then(function(){
+						       console.log("The loading indicator is now displayed");
+						    });
 					
-					}, function(tx){
-						console.log('error', tx);
-					});
-			 } 
-			 	for (var i = 0; i < taxistas.length; i++) {
-			 	taxistas[i] 
+					
+						
+					
 
-			 
-				consulta = 'INSERT INTO taxistas (id, rowid, nombres, apellidos, sexo, documento, celular, usuario, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
-		ConexionServ.query(consulta, [taxistas[i].id, taxistas[i].id, taxistas[i].nombres, taxistas[i].apellidos, taxistas[i].sexo, taxistas[i].documento, taxistas[i].celular,taxistas[i].usuario, taxistas[i].password]).then(function(result){
-			console.log('se cargo el taxista', result);
+						$http.get(rutaServidor.ruta + 'taxis/all').then (function(result){
+							taxis = result.data.taxis;
+							taxistas = result.data.taxistas;
+							usuarios = result.data.usuarios;
+							carreras = result.data.carreras;
+
+							for (var i = 0; i < taxis.length; i++) {
+							 	taxis[i] 
+
+							 
+								consulta = 'INSERT INTO taxis ( id, rowid, numero, placa, taxista_id, propietario) VALUES( ?, ?, ?, ?, ?, ?)'
+									ConexionServ.query(consulta, [taxis[i].id, taxis[i].id, taxis[i].numero, taxis[i].placa, taxis[i].taxista_id, taxis[i].propietario]).then(function(result){
+										console.log('se cargo el taxi', result);
+									
+									}, function(tx){
+										console.log('error', tx);
+									});
+							 } 
+							 	for (var i = 0; i < taxistas.length; i++) {
+							 	taxistas[i] 
+
+							 
+								consulta = 'INSERT INTO taxistas (id, rowid, nombres, apellidos, sexo, documento, celular, usuario, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+						ConexionServ.query(consulta, [taxistas[i].id, taxistas[i].id, taxistas[i].nombres, taxistas[i].apellidos, taxistas[i].sexo, taxistas[i].documento, taxistas[i].celular,taxistas[i].usuario, taxistas[i].password]).then(function(result){
+							console.log('se cargo el taxista', result);
+					
+									}, function(tx){
+										console.log('error', tx);
+									});
+							 } 
+							
+							 	for (var i = 0; i < carreras.length; i++) {
+							 	carreras[i] 
+
+							 
+									consulta = 'INSERT INTO carreras (id, rowid, taxi_id, taxista_id, zona, fecha_ini, lugar_inicio, lugar_fin, fecha_fin, estado) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+						ConexionServ.query(consulta, [carreras[i].id, carreras[i].id, carreras[i].taxi_id, carreras[i].taxista_id, carreras[i].zona, carreras[i].fecha_ini, carreras[i].lugar_ini, carreras[i].lugar_fin, carreras[i].fecha_fin, carreras[i].estado]).then(function(result){
+							console.log('se guardo la carrera papi', result);
+									
+							    $ionicLoading.hide().then(function(){
+						       console.log("The loading indicator is now hidden");
+						    		});
+
+								}, function(tx){
+									console.log('error', tx);
+								});
+							 } 
+
+
+
+				})
+
+		     } else {
+		     	console.log("error")
+		     	return;	
 	
-					}, function(tx){
-						console.log('error', tx);
-					});
-			 } 
-			
-			 	for (var i = 0; i < carreras.length; i++) {
-			 	carreras[i] 
-
-			 
-					consulta = 'INSERT INTO carreras (id, rowid, taxi_id, taxista_id, zona, fecha_ini, lugar_inicio, lugar_fin, fecha_fin, estado) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-		ConexionServ.query(consulta, [carreras[i].id, carreras[i].id, carreras[i].taxi_id, carreras[i].taxista_id, carreras[i].zona, carreras[i].fecha_ini, carreras[i].lugar_ini, carreras[i].lugar_fin, carreras[i].fecha_fin, carreras[i].estado]).then(function(result){
-			console.log('se guardo la carrera papi', result);
-					
-		
-				}, function(tx){
-					console.log('error', tx);
-				});
-			 } 
-
-
-
-		}), function(){
-			console.log('error db')
-		}
-
+		     }
+		})
 	}
+	
 
 	$scope.basededatos = function (){
 
@@ -233,36 +264,76 @@ var confirmPopup = $ionicPopup.confirm({
    });
 
    confirmPopup.then(function(res) {
+     console.log(res)
      if(res) {
-   	consulta = 'DELETE FROM users WHERE rowid != "1" '
-			ConexionServ.query(consulta, []).then(function(result){
-				console.log('se elimino el taxista en la compu', result);
-					$scope.traer_datos()
-			}, function(tx){
-				console.log('error', tx);
-			});
-					consulta = 'DELETE FROM taxistas'
-			ConexionServ.query(consulta, []).then(function(result){
-				console.log('se elimino el taxista en la compu', result);
-					$scope.traer_datos()
-			}, function(tx){
-				console.log('error', tx);
-			});
-					consulta = 'DELETE FROM carreras'
-			ConexionServ.query(consulta, []).then(function(result){
-				console.log('se elimino el taxista en la compu', result);
-					$scope.traer_datos()
-			}, function(tx){
-				console.log('error', tx);
-			});
-					consulta = 'DELETE FROM taxis'
-			ConexionServ.query(consulta, []).then(function(result){
-				console.log('se elimino el taxista en la compu', result);
-					$scope.traer_datos()
-			}, function(tx){
-				console.log('error', tx);
-			});
+      var myPopup = $ionicPopup.show({
+    			template: '<input type="password" ng-model="data.eliminar">',
+			    title: 'Ingresa la contraseña',
+				scope: $scope,
+			    buttons: [
+			      { text: 'Cancel' },
+			      {
+			        text: '<b>Save</b>',
+			        type: 'button-positive',
+			        onTap: function(e) {
+			        	console.log($scope.data.eliminar);
 
+						if ($scope.data.eliminar=="hola") {
+
+			          		var alertPopup = $ionicPopup.alert({
+										    	title: 'Datos Eliminados',
+										    	template: 'Datos eliminados'
+											});
+
+						   alertPopup.then(function(res) {
+						     console.log('Thank you for not eating my delicious ice cream cone');
+						   });
+
+			           
+				   			consulta = 'DELETE FROM users WHERE rowid != "1" '
+							ConexionServ.query(consulta, []).then(function(result){
+								console.log('se elimino el taxista en la compu', result);
+								$scope.traer_datos()
+							}, function(tx){
+								console.log('error', tx);
+							});
+									consulta = 'DELETE FROM taxistas'
+							ConexionServ.query(consulta, []).then(function(result){
+								console.log('se elimino el taxista en la compu', result);
+									$scope.traer_datos()
+							}, function(tx){
+								console.log('error', tx);
+							});
+									consulta = 'DELETE FROM carreras'
+							ConexionServ.query(consulta, []).then(function(result){
+								console.log('se elimino el taxista en la compu', result);
+									$scope.traer_datos()
+							}, function(tx){
+								console.log('error', tx);
+							});
+									consulta = 'DELETE FROM taxis'
+							ConexionServ.query(consulta, []).then(function(result){
+								console.log('se elimino el taxista en la compu', result);
+									$scope.traer_datos()
+							}, function(tx){
+								console.log('error', tx);
+							});
+						} else {
+				          	var alertPopup = $ionicPopup.alert({
+							     title: 'Contraseña Incorrecta',
+							     template: 'La contraseña ingresada para eliminar es incorrecta'
+							   });
+
+						   	alertPopup.then(function(res) {
+						     	console.log('Thank you for not eating my delicious ice cream cone');
+						   	});
+										
+			            	return;
+			          	}
+			        }
+			      }
+			    ]
+			  });
      } else {
        return;
      }
