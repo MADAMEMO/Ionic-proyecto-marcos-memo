@@ -40,13 +40,13 @@ angular.module('starter')
 
             if (datos.tipo == 'Operador') {
 
-                consulta = 'SELECT u.rowid, u.id, u.nombres, u.apellidos, u.usuario, u.sexo, u.celular, u.documento, u.tipo '+
+                consulta = 'SELECT u.rowid, u.id, u.nombres, u.apellidos, u.usuario, u.sexo, u.celular, u.documento, u.tipo, u.usuario '+
                         'FROM users u '+
                         'WHERE  u.usuario=? and u.password=? ' ;
 
             }else{
 
-                consulta = 'SELECT t.rowid, t.id, t.nombres, t.apellidos, t.sexo, t.celular, t.documento, tx.id as taxi_id '+
+                consulta = 'SELECT t.rowid, t.id, t.nombres, t.apellidos, t.sexo, t.celular, t.documento, t.usuario, tx.id as taxi_id '+
                         'FROM taxistas t INNER JOIN taxis tx ON tx.taxista_id=t.id '+
                         'WHERE t.usuario=? and t.password=? ' ;
 

@@ -913,7 +913,7 @@
 })
 
 
-.controller('AccountCtrl', function($scope, $http, $filter, ConexionServ, AuthServ,  $state) {
+.controller('AccountCtrl', function($scope, $http, $filter, ConexionServ, AuthServ,  $state, $ionicPopup) {
 
  	console.log($scope.USER);
 
@@ -929,10 +929,25 @@
 		ConexionServ.query(consulta, [usu.nombres,usu.apellidos, usu.sexo, usu.documento, usu.celular,fecha_nac,  usu.rowid]).then(function(result){
 			console.log('se cargo el usuario', result);
 			AuthServ.update_user_storage(usu);
+			 var alertPopup = $ionicPopup.alert({
+		     title: 'Usuario Modificado',
+		     template: 'Se ha modificado el usuario'
+		   });
+
+		   alertPopup.then(function(res) {
+		     console.log('Thank you for not eating my delicious ice cream cone');
+		   });
 
 		}, function(tx){
 			console.log('error', tx);
+			 var alertPopup = $ionicPopup.alert({
+				     title: 'Error al modificar',
+				     template: 'Revita tus datos nuevamente'
+				   });
 
+				   alertPopup.then(function(res) {
+				     console.log('Thank you for not eating my delicious ice cream cone');
+				   });
 		});
 
 	}
@@ -942,7 +957,16 @@
 
 		if (passwords.nuevo != passwords.nuevo2) {
 			console.log('No coincide la contraseña nueva');
+			 var alertPopup = $ionicPopup.alert({
+		     title: 'Datos Invalidos',
+		     template: 'Contraseñas no coinciden'
+		   });
+
+		   alertPopup.then(function(res) {
+		     console.log('Thank you for not eating my delicious ice cream cone');
+		   });
 			return;
+
 		}
 
 		datos = { username: $scope.USER.usuario, password: passwords.antiguo}
@@ -952,12 +976,41 @@
 			consulta = 'UPDATE users SET password=? WHERE rowid=?';
 			ConexionServ.query(consulta, [passwords.nuevo, $scope.USER.rowid]).then(function(){
 			console.log('CONTRASEÑA CAMBIADA', result);
+			var alertPopup = $ionicPopup.alert({
+		     title: 'Datos Invalidos',
+		     template: 'Contraseñas no coinciden'
+		   });
+
+		   alertPopup.then(function(res) {
+		     console.log('Thank you for not eating my delicious ice cream cone');
+		   });
+
+
 			}, function(){
 			console.log('CONTRASEÑA NO CAMBIADA', result);
+			var alertPopup = $ionicPopup.alert({
+		     title: 'Datos Invalidos',
+		     template: 'Contraseñas no cambia'
+		   });
+
+		   alertPopup.then(function(res) {
+		     console.log('Thank you for not eating my delicious ice cream cone');
+		   });
+
+
 			})
 
 		}, function(err){
 		console.log('CONTRASEÑA ANTIGUA INVALIDA ', err);
+
+		var alertPopup = $ionicPopup.alert({
+		     title: 'Contraseña antigua incorrecta',
+		     template: 'Ingresa la contraseña anterior'
+		   });
+
+		   alertPopup.then(function(res) {
+		     console.log('Thank you for not eating my delicious ice cream cone');
+		   });
 
 		});
 	}

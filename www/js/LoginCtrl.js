@@ -22,7 +22,7 @@
 		AuthServ.loguear(usu).then(function(){
 			$state.go('tab.dash');
 		}, function(err){
-		
+			$scope.showAlert()
 			console.log(usu, err);
 
 		});
