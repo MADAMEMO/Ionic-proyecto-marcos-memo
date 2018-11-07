@@ -8,8 +8,8 @@
 angular.module('starter', ['ionic', 'ionic-timepicker'])
 
 .constant('rutaServidor', {
-    //ruta: 'http://edilson.micolevirtual.com/feryz_server/public/'
-    ruta: 'http://192.168.100.31/feryz_server/public/'
+    ruta: 'http://edilson.micolevirtual.com/feryz_server/public/'
+    //ruta: 'http://192.168.100.31/feryz_server/public/'
 })
 
 .run(function($ionicPlatform) {
