@@ -61,11 +61,11 @@
         Bienvenido. Aquí debería salir el mapa en futuras versiones.
         </p>
 
-        <div>
+        <div ng-show="USER.tipo != 'Admin'">
           <b>Latitud:</b> {{position.coords.latitude}}
         </div>
 
-        <div>
+        <div ng-show="USER.tipo != 'Admin'">
           <b>Longuitud:</b> {{position.coords.longitude}}
         </div>
 
