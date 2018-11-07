@@ -18,8 +18,9 @@
       zoom: 14
     });
     */
+    $scope.position = position;
     $http.put(rutaServidor.ruta + 'taxis/guardar-posicion', {taxi_id: USER.taxi_id, longitud: position.coords.longitude, latitud: position.coords.latitude}).then(function(result){
-      $scope.posicion = result.data.posicion;
+
     }, function(r2){
       console.log('Error', r2)
     })
